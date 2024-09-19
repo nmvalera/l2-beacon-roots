@@ -1,0 +1,22 @@
+name: Lint Tests
+
+on:
+  push:
+    paths:
+      - "contracts/**"
+      - ".github/**"
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: Run lint tests
+        run: make test-lint
