@@ -6,8 +6,12 @@ foundry:
 	curl -L https://foundry.paradigm.xyz | bash
 	foundryup 
 
+# Pull libraries submodules
+lib:
+	git submodule update --init --recursive 
+
 # Install development dependencies
-install: foundry
+install: foundry lib
 
 # Run tests
 test:
