@@ -1,0 +1,7 @@
+# Common files
+.DS_Store
+.idea
+.vscode
+
+# Foundry files
+.foundry/*

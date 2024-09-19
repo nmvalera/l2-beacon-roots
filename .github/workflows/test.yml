@@ -1,0 +1,23 @@
+name: Unit Tests
+
+on:
+  push:
+    paths:
+      - "contracts/**"
+      - "lib/**"
+      - ".github/**"
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: Run unit tests
+        run: make test

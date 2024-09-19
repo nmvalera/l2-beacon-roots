@@ -1,0 +1,31 @@
+[profile.default]
+optimizer = true
+optimizer_runs = 100
+
+## --- Project --- ## 
+
+# The source directory
+src = 'contracts/src'
+
+# The test directory
+test = 'contracts/test'
+
+# The artifact directory
+out = '.foundry/out'
+
+# Whether to cache builds or not
+cache = true
+
+# The cache directory if enabled
+cache_path  = '.foundry/cache'
+
+## --- Testing --- ##
+
+# Only run tests in contracts matching the specified glob pattern
+match_path = '**/test/**/*.test.sol'
+
+## --- Compiler --- ##
+[fuzz]
+runs = 1500
+
+
