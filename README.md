@@ -14,6 +14,14 @@ The protocol leverages [EIP-4788](https://eips.ethereum.org/EIPS/eip-4788), whic
 
 See [Contributing Guidelines](./CONTRIBUTING.md)
 
+# Deployment Addresses
+
+| Contract | Optimism Sepolia (L2) | Sepolia (L1) |
+|-|-|-|
+| [L2BeaconRoots](./contracts/src/L2BeaconRoots.sol) | [0xb53F763AB795e2A2C13613e25cc54939Ca01b4E1](https://sepolia-optimism.etherscan.io/address/0xb53F763AB795e2A2C13613e25cc54939Ca01b4E1) | |
+| [L1BeaconRootsSender](./contracts/src/L1BeaconRootsSender.sol) | | [0x5cdF4C5cbe8b4412b319f5Ae28a77A7177B3adcA](https://sepolia.etherscan.io/address/0x5cdF4C5cbe8b4412b319f5Ae28a77A7177B3adcA) |
+
+
 # Architecture Overview
 
 ## Diagram
