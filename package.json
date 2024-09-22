@@ -1,6 +1,6 @@
 {
-  "name": "river",
-  "version": "0.0.1",
+  "name": "kraken-l2-test",
+  "version": "0.1.0",
   "scripts": {
     "format": "prettier --write ./deploy",
     "compile": "hardhat compile",
@@ -13,7 +13,7 @@
     "@nomicfoundation/hardhat-ethers": "^3.0.8",
     "@nomiclabs/hardhat-etherscan": "^3.1.8",
     "@primitivefi/hardhat-dodoc": "^0.2.3",
-    "@typechain/ethers-v5": "^11.1.2",
+    "@typechain/ethers-v6": "^0.5.1",
     "@typechain/hardhat": "^9.1.0",
     "@types/node": "^22.5.5",
     "@typescript-eslint/eslint-plugin": "^8.6.0",

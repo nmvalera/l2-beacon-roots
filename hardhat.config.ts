@@ -30,15 +30,17 @@ const config: HardhatUserConfig = {
   },
   networks: {
     sepolia: {
-      url: process.env.RPC_URL || "",
+      url: process.env.RPC_URL_SEPOLIA,
       accounts: [process.env.DEPLOYER_PRIVATE_KEY_SEPOLIA],
+      deploy: ["deploy/sepolia"],
     },
     optimismSepolia: {
-        url: process.env.RPC_URL || "",
+        url: process.env.RPC_URL_OP_SEPOLIA,
         accounts: [process.env.DEPLOYER_PRIVATE_KEY_OP_SEPOLIA],
         companionNetworks: {
           l1: "sepolia",
-        }
+        },
+        deploy: ["deploy/optimismSepolia"],
     },
   },
   namedAccounts: {
@@ -46,12 +48,12 @@ const config: HardhatUserConfig = {
       default: 0,
     },
     l1Messenger: {
-      sepolia: "",
-      optimismSepolia: ""
+      sepolia: "0x58Cc85b8D04EA49cC6DBd3CbFFd00B4B8D6cb3ef",
+      optimismSepolia: "0x58Cc85b8D04EA49cC6DBd3CbFFd00B4B8D6cb3ef"
     },
     l2Messenger: {
-      sepolia: "",
-      optimismSepolia: ""
+      sepolia: "0x4200000000000000000000000000000000000007",
+      optimismSepolia: "0x4200000000000000000000000000000000000007"
     }
   },
   paths: {
@@ -60,8 +62,8 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-        sepolia: process.env.ETHERSCAN_SEPOLIA_API_KEY,
-        optimismSepolia: process.env.ETHERSCAN_OP_SEPOLIA_API_KEY
+        sepolia: process.env.ETHERSCAN_API_KEY_SEPOLIA,
+        optimismSepolia: process.env.ETHERSCAN_API_KEY_OP_SEPOLIA
     },
     customChains: [
       {

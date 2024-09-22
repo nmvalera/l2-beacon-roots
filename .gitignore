@@ -10,3 +10,8 @@
 
 # Node
 node_modules
+
+# Hardhat
+artifacts
+hardhat-cache
+typechain-types

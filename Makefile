@@ -1,4 +1,4 @@
-.PHONY: foundry install test test-lint lint
+.PHONY: foundry install test test-lint lint deploy
 
 # Install foundry
 foundry:
@@ -14,7 +14,7 @@ yarn:
 	yarn && yarn link_contracts
 
 # Install development dependencies
-install: foundry lib
+install: foundry lib yarn
 
 # Run tests
 test:
@@ -29,3 +29,8 @@ test-lint:
 lint:
 	forge build --force
 	forge fmt
+
+# Deploy
+deploy:
+	yarn hh deploy --network optimismSepolia
+	yarn hh deploy --network sepolia
