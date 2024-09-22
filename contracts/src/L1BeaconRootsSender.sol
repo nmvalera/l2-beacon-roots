@@ -19,7 +19,7 @@ contract L1BeaconRootsSender {
     L2BeaconRoots public immutable L2_BEACON_ROOTS;
 
     /// @notice The required gas limit for executing the set function on the L2BeaconRoots contract
-    uint32 public constant L2_BEACON_ROOTS_SET_GAS_LIMIT = 25_000;
+    uint32 public constant L2_BEACON_ROOTS_SET_GAS_LIMIT = 27_000;
 
     /// @notice Event emitted when a block root is sent to the L2
     /// @notice The event can be emitted multiple times for the same block root

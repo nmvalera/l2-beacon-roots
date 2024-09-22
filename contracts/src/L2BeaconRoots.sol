@@ -16,10 +16,14 @@ contract L2BeaconRoots {
     IL2CrossDomainMessenger public immutable MESSENGER;
 
     /// @notice The L1BeaconRootsSender contract on the L1
-    address public immutable L1_BEACON_ROOTS_SENDER;
+    address public L1_BEACON_ROOTS_SENDER;
 
     /// @notice The beacon chain block roots stored by timestamps
     mapping(uint256 => bytes32) public beaconRoots;
+
+    /// @notice Event emitted when the smart contract is initialized
+    /// @param _l1BeaconRootsSender: The address of the L1BeaconRootsSender contract on L1
+    event Initialized(address _l1BeaconRootsSender);
 
     /// @notice Event emitted when a beacon block root is set
     /// @notice The event can be emitted multiple times for the same block root
@@ -30,10 +34,20 @@ contract L2BeaconRoots {
     event BeaconRootSet(uint256 timestamp, bytes32 blockRoot);
 
     /// @param _messenger: The address of the L2 CrossDomainMessenger contract
-    /// @param _l1BeaconRootsSender: The address of the L1 BeaconRootsSender contract
-    constructor(address _messenger, address _l1BeaconRootsSender) {
+    constructor(address _messenger) {
         MESSENGER = IL2CrossDomainMessenger(_messenger);
+    }
+
+    /// @notice Initialize the contract with the L1BeaconRootsSender address.
+    /// @param _l1BeaconRootsSender: The address of the L1BeaconRootsSender contract
+    /// @dev The flow is:
+    ///       1) Deploy L2BeaconRoots on L2
+    ///       2) Deploy L1BeaconRootsSender on L1 (passing the address of the deployed L2BeaconRoots to the constructor)
+    ///       3) Initialize L2BeaconRoots with the L1BeaconRootsSender address
+    function init(address _l1BeaconRootsSender) public {
+        require(address(L1_BEACON_ROOTS_SENDER) == address(0), "BeaconRoots: Contract has already been initialized");
         L1_BEACON_ROOTS_SENDER = _l1BeaconRootsSender;
+        emit Initialized(_l1BeaconRootsSender);
     }
 
     /// @notice Sets the beacon root for a given beacon chain timestamp
