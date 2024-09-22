@@ -1,0 +1,40 @@
+{
+  "name": "kraken-l2-test",
+  "version": "0.1.0",
+  "scripts": {
+    "format": "prettier --write ./deploy",
+    "compile": "hardhat compile",
+    "hh": "hardhat",
+    "uml": "sol2uml ./contracts/src -o ./docs/components.svg",
+    "link_contracts": "cd node_modules && rm -rf forge-std && ln -s ../lib/forge-std"
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "@nomiclabs/hardhat-etherscan": "^3.1.8",
+    "@primitivefi/hardhat-dodoc": "^0.2.3",
+    "@typechain/ethers-v6": "^0.5.1",
+    "@typechain/hardhat": "^9.1.0",
+    "@types/node": "^22.5.5",
+    "@typescript-eslint/eslint-plugin": "^8.6.0",
+    "@typescript-eslint/parser": "^8.6.0",
+    "dotenv": "^16.4.5",
+    "eslint": "^9.11.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-promise": "^7.1.0",
+    "ethers": "^6.13.2",
+    "hardhat": "^2.8.2",
+    "hardhat-contract-sizer": "^2.4.0",
+    "hardhat-deploy": "^0.12.0",
+    "hardhat-docgen": "^1.3.0",
+    "hardhat-gas-reporter": "^2.2.1",
+    "rimraf": "^6.0.1",
+    "sol2uml": "^2.5.20",
+    "ts-node": "^10.4.0",
+    "typechain": "^8.3.2",
+    "typescript": "^5.6.2"
+  }
+}

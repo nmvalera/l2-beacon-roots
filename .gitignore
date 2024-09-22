@@ -3,5 +3,15 @@
 .idea
 .vscode
 
+.env
+
 # Foundry files
 .foundry/*
+
+# Node
+node_modules
+
+# Hardhat
+artifacts
+hardhat-cache
+typechain-types

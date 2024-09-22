@@ -1,0 +1,215 @@
+{
+  "address": "0x5cdF4C5cbe8b4412b319f5Ae28a77A7177B3adcA",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_messenger",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_l2BeaconRoots",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "BeaconRootMissing",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "TimestampInTheFuture",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "TimestampOutOfRing",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "blockRoot",
+          "type": "bytes32"
+        }
+      ],
+      "name": "BlockRootSent",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "L1_MESSENGER",
+      "outputs": [
+        {
+          "internalType": "contract IL1CrossDomainMessenger",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "L2_BEACON_ROOTS",
+      "outputs": [
+        {
+          "internalType": "contract L2BeaconRoots",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "L2_BEACON_ROOTS_SET_GAS_LIMIT",
+      "outputs": [
+        {
+          "internalType": "uint32",
+          "name": "",
+          "type": "uint32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "sendBlockRoot",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "sendCurrentBlockRoot",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x36475697e51d6559a35b76b71c11286f8531fcb64752054bf558b810d7127a1e",
+  "receipt": {
+    "to": null,
+    "from": "0xFD94B77dEf93B655b37F149d58cb3AD21743180F",
+    "contractAddress": "0x5cdF4C5cbe8b4412b319f5Ae28a77A7177B3adcA",
+    "transactionIndex": 19,
+    "gasUsed": "304428",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xbbf56bb458055f1713a9f8e39d6ababadef04b25e91294c59e5400dcbe637ff8",
+    "transactionHash": "0x36475697e51d6559a35b76b71c11286f8531fcb64752054bf558b810d7127a1e",
+    "logs": [],
+    "blockNumber": 6741220,
+    "cumulativeGasUsed": "10397894",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x58Cc85b8D04EA49cC6DBd3CbFFd00B4B8D6cb3ef",
+    "0xb53F763AB795e2A2C13613e25cc54939Ca01b4E1"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "54ce8f023bb4c12ec6b6dbd824e1b84a",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_messenger\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_l2BeaconRoots\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"BeaconRootMissing\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TimestampInTheFuture\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TimestampOutOfRing\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"blockRoot\",\"type\":\"bytes32\"}],\"name\":\"BlockRootSent\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"L1_MESSENGER\",\"outputs\":[{\"internalType\":\"contract IL1CrossDomainMessenger\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"L2_BEACON_ROOTS\",\"outputs\":[{\"internalType\":\"contract L2BeaconRoots\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"L2_BEACON_ROOTS_SET_GAS_LIMIT\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_timestamp\",\"type\":\"uint256\"}],\"name\":\"sendBlockRoot\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"sendCurrentBlockRoot\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"events\":{\"BlockRootSent(uint256,bytes32)\":{\"params\":{\"blockRoot\":\": The beacon chain block root at the given timestamp\",\"timestamp\":\": The timestamp of the beacon chain block\"}}},\"kind\":\"dev\",\"methods\":{\"sendBlockRoot(uint256)\":{\"params\":{\"_timestamp\":\": The timestamp of the beacon chain block\"}}},\"stateVariables\":{\"BEACON_ROOTS_HISTORY_BUFFER_LENGTH\":{\"details\":\"https://eips.ethereum.org/EIPS/eip-4788\"},\"L1_BEACON_ROOTS\":{\"details\":\"https://eips.ethereum.org/EIPS/eip-4788\"}},\"title\":\"L1BeaconRootsSender\",\"version\":1},\"userdoc\":{\"errors\":{\"BeaconRootMissing()\":[{\"notice\":\"Beacont root is missing for the given timestamp.\"}],\"TimestampInTheFuture()\":[{\"notice\":\"Timestamp is in the future\"}],\"TimestampOutOfRing()\":[{\"notice\":\"Timestamp out of range for the the beacon roots buffer ring.\"}]},\"events\":{\"BlockRootSent(uint256,bytes32)\":{\"notice\":\"Event emitted when a block root is sent to the L2The event can be emitted multiple times for the same block rootThe event can be emitted for block roots in the pastThe protocol does not guarantee that the event is emitted for every block root\"}},\"kind\":\"user\",\"methods\":{\"L1_MESSENGER()\":{\"notice\":\"The OP L1CrossDomainMessenger contract\"},\"L2_BEACON_ROOTS()\":{\"notice\":\"The L2BeaconRoots contract on the L2\"},\"L2_BEACON_ROOTS_SET_GAS_LIMIT()\":{\"notice\":\"The required gas limit for executing the set function on the L2BeaconRoots contract\"},\"sendBlockRoot(uint256)\":{\"notice\":\"Sends a beacon block root to the L2Retrieves the block root from the official beacon roots contract and sends it to the L2\"},\"sendCurrentBlockRoot()\":{\"notice\":\"Sends beacon block root of the current block to the L2Retrieves the block root from the official beacon roots contract and sends it to the L2The beacon block root is for the parent beacon chain slot of the current block\"}},\"notice\":\"The L1BeaconRootsSender contract sends the beacon chain block roots to the L2BeaconRoots contract on the L2\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/src/L1BeaconRootsSender.sol\":\"L1BeaconRootsSender\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":100},\"remappings\":[],\"viaIR\":true},\"sources\":{\"contracts/src/L1BeaconRootsSender.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.20;\\n\\nimport \\\"./L2BeaconRoots.sol\\\";\\n\\n/// @title IL1CrossDomainMessenger\\n/// @notice Interface for the OP L1CrossDomainMessenger contract\\ninterface IL1CrossDomainMessenger {\\n    function sendMessage(address _target, bytes calldata _message, uint32 _gasLimit) external;\\n}\\n\\n/// @title L1BeaconRootsSender\\n/// @notice The L1BeaconRootsSender contract sends the beacon chain block roots to the L2BeaconRoots contract on the L2\\ncontract L1BeaconRootsSender {\\n    /// @notice The OP L1CrossDomainMessenger contract\\n    IL1CrossDomainMessenger public immutable L1_MESSENGER;\\n\\n    /// @notice The L2BeaconRoots contract on the L2\\n    L2BeaconRoots public immutable L2_BEACON_ROOTS;\\n\\n    /// @notice The required gas limit for executing the set function on the L2BeaconRoots contract\\n    uint32 public constant L2_BEACON_ROOTS_SET_GAS_LIMIT = 27_000;\\n\\n    /// @notice Event emitted when a block root is sent to the L2\\n    /// @notice The event can be emitted multiple times for the same block root\\n    /// @notice The event can be emitted for block roots in the past\\n    /// @notice The protocol does not guarantee that the event is emitted for every block root\\n    /// @param timestamp: The timestamp of the beacon chain block\\n    /// @param blockRoot: The beacon chain block root at the given timestamp\\n    event BlockRootSent(uint256 timestamp, bytes32 blockRoot);\\n\\n    /// @notice Timestamp out of range for the the beacon roots buffer ring.\\n    error TimestampOutOfRing();\\n\\n    /// @notice Timestamp is in the future\\n    error TimestampInTheFuture();\\n\\n    /// @notice Beacont root is missing for the given timestamp.\\n    error BeaconRootMissing();\\n\\n    /// @notice The L1 official Beacon Roots contracts storing the beacon chain block roots\\n    /// @dev https://eips.ethereum.org/EIPS/eip-4788\\n    address internal constant L1_BEACON_ROOTS = 0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02;\\n\\n    /// @notice The length of the beacon roots ring buffer.\\n    /// @dev https://eips.ethereum.org/EIPS/eip-4788\\n    uint256 internal constant BEACON_ROOTS_HISTORY_BUFFER_LENGTH = 8191;\\n\\n    /// @notice The number of seconds per slot in the beacon chain (12 seconds)\\n    uint256 internal constant BEACON_SECONDS_PER_SLOT = 12;\\n\\n    constructor(address _messenger, address _l2BeaconRoots) {\\n        L1_MESSENGER = IL1CrossDomainMessenger(_messenger);\\n        L2_BEACON_ROOTS = L2BeaconRoots(_l2BeaconRoots);\\n    }\\n\\n    /// @notice Sends a beacon block root to the L2\\n    /// @notice Retrieves the block root from the official beacon roots contract and sends it to the L2\\n    /// @param _timestamp: The timestamp of the beacon chain block\\n    function sendBlockRoot(uint256 _timestamp) public {\\n        uint256 currentBlockTimestamp = block.timestamp;\\n\\n        // If the _timestamp is not guaranteed to be within the beacon block root ring buffer, revert.\\n        if (_timestamp > currentBlockTimestamp) {\\n            revert TimestampInTheFuture();\\n        }\\n\\n        if ((currentBlockTimestamp - _timestamp) >= (BEACON_ROOTS_HISTORY_BUFFER_LENGTH * BEACON_SECONDS_PER_SLOT)) {\\n            revert TimestampOutOfRing();\\n        }\\n\\n        bytes32 beaconRoot = _getBlockRoot(_timestamp);\\n        if (beaconRoot == bytes32(0)) {\\n            revert BeaconRootMissing();\\n        }\\n\\n        _send(_timestamp, beaconRoot);\\n    }\\n\\n    /// @notice Sends beacon block root of the current block to the L2\\n    /// @notice Retrieves the block root from the official beacon roots contract and sends it to the L2\\n    /// @notice The beacon block root is for the parent beacon chain slot of the current block\\n    function sendCurrentBlockRoot() public {\\n        uint256 currentBlockTimestamp = block.timestamp;\\n\\n        bytes32 beaconRoot = _getBlockRoot(currentBlockTimestamp);\\n        if (beaconRoot == bytes32(0)) {\\n            revert BeaconRootMissing();\\n        }\\n\\n        _send(currentBlockTimestamp, beaconRoot);\\n    }\\n\\n    /// @notice Retrieves a beacon block root from the official beacon roots contract (EIP-4788)\\n    /// @param _timestamp: The timestamp of the beacon chain block\\n    function _getBlockRoot(uint256 _timestamp) internal view returns (bytes32 blockRoot) {\\n        (bool success, bytes memory result) = L1_BEACON_ROOTS.staticcall(abi.encode(_timestamp));\\n        if (success && result.length > 0) {\\n            return abi.decode(result, (bytes32));\\n        } else {\\n            return bytes32(0);\\n        }\\n    }\\n\\n    /// @notice Sends a beacon block root to the L2\\n    /// @param _timestamp: The timestamp of the beacon chain block\\n    /// @param _beaconRoot: The beacon chain block root at the given timestamp\\n    function _send(uint256 _timestamp, bytes32 _beaconRoot) internal {\\n        // Send the block root to the L2\\n        L1_MESSENGER.sendMessage(\\n            address(L2_BEACON_ROOTS),\\n            abi.encodeCall(L2_BEACON_ROOTS.set, (_timestamp, _beaconRoot)),\\n            L2_BEACON_ROOTS_SET_GAS_LIMIT\\n        );\\n\\n        // Emit BlockRootSent event\\n        emit BlockRootSent(_timestamp, _beaconRoot);\\n    }\\n}\\n\",\"keccak256\":\"0xc47874ee2eb189de06e66a31c6368bbffe4175c7bbc88a6b63cd8de74f1b5b99\",\"license\":\"MIT\"},\"contracts/src/L2BeaconRoots.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.20;\\n\\nimport \\\"./L1BeaconRootsSender.sol\\\";\\n\\n/// @title IL2CrossDomainMessenger\\n/// @notice Interface for the OP L2CrossDomainMessenger contract\\ninterface IL2CrossDomainMessenger {\\n    function xDomainMessageSender() external view returns (address);\\n}\\n\\n/// @title L2BeaconRoots\\n/// @notice The L2BeaconRoots contract stores the beacon chain block roots on the L2\\ncontract L2BeaconRoots {\\n    /// @notice The L1CrossDomainMessenger contract\\n    IL2CrossDomainMessenger public immutable MESSENGER;\\n\\n    /// @notice The L1BeaconRootsSender contract on the L1\\n    address public L1_BEACON_ROOTS_SENDER;\\n\\n    /// @notice The beacon chain block roots stored by timestamps\\n    mapping(uint256 => bytes32) public beaconRoots;\\n\\n    /// @notice Event emitted when the smart contract is initialized\\n    /// @param _l1BeaconRootsSender: The address of the L1BeaconRootsSender contract on L1\\n    event Initialized(address _l1BeaconRootsSender);\\n\\n    /// @notice Event emitted when a beacon block root is set\\n    /// @notice The event can be emitted multiple times for the same block root\\n    /// @notice The event can be emitted for block roots in the past\\n    /// @notice The protocol does not guarantee that the event is emitted for every block root\\n    /// @param timestamp: The timestamp of the beacon chain block\\n    /// @param blockRoot: The beacon chain block root at the given timestamp\\n    event BeaconRootSet(uint256 timestamp, bytes32 blockRoot);\\n\\n    /// @param _messenger: The address of the L2 CrossDomainMessenger contract\\n    constructor(address _messenger) {\\n        MESSENGER = IL2CrossDomainMessenger(_messenger);\\n    }\\n\\n    /// @notice Initialize the contract with the L1BeaconRootsSender address.\\n    /// @param _l1BeaconRootsSender: The address of the L1BeaconRootsSender contract\\n    /// @dev The flow is:\\n    ///       1) Deploy L2BeaconRoots on L2\\n    ///       2) Deploy L1BeaconRootsSender on L1 (passing the address of the deployed L2BeaconRoots to the constructor)\\n    ///       3) Initialize L2BeaconRoots with the L1BeaconRootsSender address\\n    function init(address _l1BeaconRootsSender) public {\\n        require(address(L1_BEACON_ROOTS_SENDER) == address(0), \\\"BeaconRoots: Contract has already been initialized\\\");\\n        L1_BEACON_ROOTS_SENDER = _l1BeaconRootsSender;\\n        emit Initialized(_l1BeaconRootsSender);\\n    }\\n\\n    /// @notice Sets the beacon root for a given beacon chain timestamp\\n    /// @notice This function must be called by the L1BeaconRootsSender contract on L1 through the OP CrossDomainMessenger\\n    /// @param _beaconTimestamp: The timestamp of the beacon chain block\\n    /// @param _beaconRoot: The beacon chain block root at the given timestamp\\n    function set(uint256 _beaconTimestamp, bytes32 _beaconRoot) public {\\n        require(msg.sender == address(MESSENGER), \\\"BeaconRoots: Direct sender must be the CrossDomainMessenger\\\");\\n\\n        require(\\n            MESSENGER.xDomainMessageSender() == L1_BEACON_ROOTS_SENDER,\\n            \\\"BeaconRoots: Remote sender must be the Beacon Roots Sender contract\\\"\\n        );\\n\\n        beaconRoots[_beaconTimestamp] = _beaconRoot;\\n\\n        emit BeaconRootSet(_beaconTimestamp, _beaconRoot);\\n    }\\n\\n    /// @notice Gets the beacon root for a given beacon chain timestamp\\n    /// @param _beacon_timestamp: The timestamp of the beacon chain block\\n    function get(uint256 _beacon_timestamp) public view returns (bytes32) {\\n        return beaconRoots[_beacon_timestamp];\\n    }\\n}\\n\",\"keccak256\":\"0x2dd18713386617fe1364d26609a3e08774e1c623896910fe5408c63bbb3a76d2\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60c03461009357601f61054338819003918201601f19168301916001600160401b0383118484101761009857808492604094855283398101031261009357610052602061004b836100ae565b92016100ae565b6001600160a01b039182166080521660a05260405161048090816100c3823960805181818161012001526102d6015260a0518181816101a1015261034c0152f35b600080fd5b634e487b7160e01b600052604160045260246000fd5b51906001600160a01b03821682036100935756fe608060408181526004918236101561001657600080fd5b600092833560e01c9182633a46ad491461018d575081634c548fa41461014f5781637e1233a91461010b578163d9ddd6401461007b575063dffcb5de1461005c57600080fd5b34610077578160031936011261007757602090516169788152f35b5080fd5b8383346100775760203660031901126100775782354281116100fb578042034281116100e85762017ff411156100d8576100b4816101d0565b9182156100c95750906100c6916102ca565b80f35b51631e1393c960e21b81528490fd5b8151633d3d53cd60e21b81528490fd5b634e487b7160e01b845260118552602484fd5b815163173a7be760e31b81528490fd5b505034610077578160031936011261007757517f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03168152602090f35b90503461018957826003193601126101895761016a426101d0565b91821561017c57836100c684426102ca565b51631e1393c960e21b8152fd5b8280fd5b8490346100775781600319360112610077577f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03168152602090f35b604080516020808201938452815267ffffffffffffffff92918101838111828210176102b4576040526000809281925190720f3df6d732807ef1319fb7b8bb8522d0beac025afa3d156102ab573d8381116102975760405193601f8201601f19908116603f01168501908111858210176102835760405283523d82602085013e5b80610279575b156102745760208280518101031261027157506020015190565b80fd5b905090565b5081511515610257565b634e487b7160e01b84526041600452602484fd5b634e487b7160e01b83526041600452602483fd5b60609250610251565b634e487b7160e01b600052604160045260246000fd5b9060018060a01b0391827f00000000000000000000000000000000000000000000000000000000000000001691604092835194602091633262778d60e11b8388015284602488015283604488015260448752608087019667ffffffffffffffff88119281891084176102b457888852823b1561044557633dbb202b60e01b89527f0000000000000000000000000000000000000000000000000000000000000000166084820152606060a4820152805160e482018190528891908560005b82811061042c575050600060848383836101048896829a9801015261697860c4830152601f801991011681010301925af18015610421576103f3575b507f4380331b13b9b22cafadc0bee4406bcf94ecb26bd720c64724f8fb495760a4b594508351928352820152a1565b6102b4577f4380331b13b9b22cafadc0bee4406bcf94ecb26bd720c64724f8fb495760a4b5948452386103c4565b85513d6000823e3d90fd5b80840180830151610104909101528b9450879101610388565b600080fdfea264697066735822122041044251d36b58427db16df2d0ecb3d56f92ab11a6944971b241474f442b081c64736f6c63430008140033",
+  "deployedBytecode": "0x608060408181526004918236101561001657600080fd5b600092833560e01c9182633a46ad491461018d575081634c548fa41461014f5781637e1233a91461010b578163d9ddd6401461007b575063dffcb5de1461005c57600080fd5b34610077578160031936011261007757602090516169788152f35b5080fd5b8383346100775760203660031901126100775782354281116100fb578042034281116100e85762017ff411156100d8576100b4816101d0565b9182156100c95750906100c6916102ca565b80f35b51631e1393c960e21b81528490fd5b8151633d3d53cd60e21b81528490fd5b634e487b7160e01b845260118552602484fd5b815163173a7be760e31b81528490fd5b505034610077578160031936011261007757517f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03168152602090f35b90503461018957826003193601126101895761016a426101d0565b91821561017c57836100c684426102ca565b51631e1393c960e21b8152fd5b8280fd5b8490346100775781600319360112610077577f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03168152602090f35b604080516020808201938452815267ffffffffffffffff92918101838111828210176102b4576040526000809281925190720f3df6d732807ef1319fb7b8bb8522d0beac025afa3d156102ab573d8381116102975760405193601f8201601f19908116603f01168501908111858210176102835760405283523d82602085013e5b80610279575b156102745760208280518101031261027157506020015190565b80fd5b905090565b5081511515610257565b634e487b7160e01b84526041600452602484fd5b634e487b7160e01b83526041600452602483fd5b60609250610251565b634e487b7160e01b600052604160045260246000fd5b9060018060a01b0391827f00000000000000000000000000000000000000000000000000000000000000001691604092835194602091633262778d60e11b8388015284602488015283604488015260448752608087019667ffffffffffffffff88119281891084176102b457888852823b1561044557633dbb202b60e01b89527f0000000000000000000000000000000000000000000000000000000000000000166084820152606060a4820152805160e482018190528891908560005b82811061042c575050600060848383836101048896829a9801015261697860c4830152601f801991011681010301925af18015610421576103f3575b507f4380331b13b9b22cafadc0bee4406bcf94ecb26bd720c64724f8fb495760a4b594508351928352820152a1565b6102b4577f4380331b13b9b22cafadc0bee4406bcf94ecb26bd720c64724f8fb495760a4b5948452386103c4565b85513d6000823e3d90fd5b80840180830151610104909101528b9450879101610388565b600080fdfea264697066735822122041044251d36b58427db16df2d0ecb3d56f92ab11a6944971b241474f442b081c64736f6c63430008140033",
+  "devdoc": {
+    "events": {
+      "BlockRootSent(uint256,bytes32)": {
+        "params": {
+          "blockRoot": ": The beacon chain block root at the given timestamp",
+          "timestamp": ": The timestamp of the beacon chain block"
+        }
+      }
+    },
+    "kind": "dev",
+    "methods": {
+      "sendBlockRoot(uint256)": {
+        "params": {
+          "_timestamp": ": The timestamp of the beacon chain block"
+        }
+      }
+    },
+    "stateVariables": {
+      "BEACON_ROOTS_HISTORY_BUFFER_LENGTH": {
+        "details": "https://eips.ethereum.org/EIPS/eip-4788"
+      },
+      "L1_BEACON_ROOTS": {
+        "details": "https://eips.ethereum.org/EIPS/eip-4788"
+      }
+    },
+    "title": "L1BeaconRootsSender",
+    "version": 1
+  },
+  "userdoc": {
+    "errors": {
+      "BeaconRootMissing()": [
+        {
+          "notice": "Beacont root is missing for the given timestamp."
+        }
+      ],
+      "TimestampInTheFuture()": [
+        {
+          "notice": "Timestamp is in the future"
+        }
+      ],
+      "TimestampOutOfRing()": [
+        {
+          "notice": "Timestamp out of range for the the beacon roots buffer ring."
+        }
+      ]
+    },
+    "events": {
+      "BlockRootSent(uint256,bytes32)": {
+        "notice": "Event emitted when a block root is sent to the L2The event can be emitted multiple times for the same block rootThe event can be emitted for block roots in the pastThe protocol does not guarantee that the event is emitted for every block root"
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "L1_MESSENGER()": {
+        "notice": "The OP L1CrossDomainMessenger contract"
+      },
+      "L2_BEACON_ROOTS()": {
+        "notice": "The L2BeaconRoots contract on the L2"
+      },
+      "L2_BEACON_ROOTS_SET_GAS_LIMIT()": {
+        "notice": "The required gas limit for executing the set function on the L2BeaconRoots contract"
+      },
+      "sendBlockRoot(uint256)": {
+        "notice": "Sends a beacon block root to the L2Retrieves the block root from the official beacon roots contract and sends it to the L2"
+      },
+      "sendCurrentBlockRoot()": {
+        "notice": "Sends beacon block root of the current block to the L2Retrieves the block root from the official beacon roots contract and sends it to the L2The beacon block root is for the parent beacon chain slot of the current block"
+      }
+    },
+    "notice": "The L1BeaconRootsSender contract sends the beacon chain block roots to the L2BeaconRoots contract on the L2",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}
