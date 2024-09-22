@@ -18,12 +18,13 @@ contract L1BeaconRootsSenderTest is Test {
     address internal l1BeaconRootsSender;
 
     // Constants
-    uint32 internal constant L2_BEACON_ROOTS_SET_GAS_LIMIT = 25_000;
+    uint32 internal constant L2_BEACON_ROOTS_SET_GAS_LIMIT = 27_000;
 
     function setUp() public {
         l2CrossDomainMessengerMock = new L2CrossDomainMessengerMock();
         l1BeaconRootsSender = makeAddr("l1BeaconRootsSender");
-        l2BeaconRoots = new L2BeaconRoots(address(l2CrossDomainMessengerMock), address(l1BeaconRootsSender));
+        l2BeaconRoots = new L2BeaconRoots(address(l2CrossDomainMessengerMock));
+        l2BeaconRoots.init(address(l1BeaconRootsSender));
     }
 
     function test_set() public {

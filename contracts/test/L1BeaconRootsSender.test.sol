@@ -23,7 +23,7 @@ contract L1BeaconRootsSenderTest is Test {
     address internal constant BEACON_ROOTS_ADDRESS = 0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02;
     uint256 internal constant BEACON_ROOTS_HISTORY_BUFFER_LENGTH = 8191;
     uint256 internal constant BEACON_SECONDS_PER_SLOT = 12;
-    uint32 internal constant L2_BEACON_ROOTS_SET_GAS_LIMIT = 25_000;
+    uint32 internal constant L2_BEACON_ROOTS_SET_GAS_LIMIT = 27_000;
 
     function setUp() public {
         l1CrossDomainMessengerMock = new L1CrossDomainMessengerMock();
