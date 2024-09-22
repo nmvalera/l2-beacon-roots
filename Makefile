@@ -10,6 +10,9 @@ foundry:
 lib:
 	git submodule update --init --recursive 
 
+yarn:
+	yarn && yarn link_contracts
+
 # Install development dependencies
 install: foundry lib
 
