@@ -30,12 +30,12 @@ const config: HardhatUserConfig = {
   },
   networks: {
     sepolia: {
-      url: process.env.RPC_URL_SEPOLIA,
+      url: process.env.ETH_RPC_URL_SEPOLIA,
       accounts: [process.env.DEPLOYER_PRIVATE_KEY_SEPOLIA],
       deploy: ["deploy/sepolia"],
     },
     optimismSepolia: {
-        url: process.env.RPC_URL_OP_SEPOLIA,
+        url: process.env.ETH_RPC_URL_OP_SEPOLIA,
         accounts: [process.env.DEPLOYER_PRIVATE_KEY_OP_SEPOLIA],
         companionNetworks: {
           l1: "sepolia",

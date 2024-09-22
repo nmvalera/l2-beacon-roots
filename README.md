@@ -21,7 +21,6 @@ See [Contributing Guidelines](./CONTRIBUTING.md)
 | [L2BeaconRoots](./contracts/src/L2BeaconRoots.sol) | [0xb53F763AB795e2A2C13613e25cc54939Ca01b4E1](https://sepolia-optimism.etherscan.io/address/0xb53F763AB795e2A2C13613e25cc54939Ca01b4E1) | |
 | [L1BeaconRootsSender](./contracts/src/L1BeaconRootsSender.sol) | | [0x5cdF4C5cbe8b4412b319f5Ae28a77A7177B3adcA](https://sepolia.etherscan.io/address/0x5cdF4C5cbe8b4412b319f5Ae28a77A7177B3adcA) |
 
-
 # Architecture Overview
 
 ## Diagram
@@ -55,3 +54,18 @@ The L1BeaconRootsSender's methods for sending data are entirely programatic, and
 ### Restriction of L2BeaconRoots set method
 
 To guarantee that the L2BeaconRoots contract only stores valid beacon roots, its `set` method is restricted to the L2 CrossDomainMessenger, and only accepts messages from the designated L1BeaconRootsSender remote contract.
+
+# Test Protocol
+
+## Send the beacon block of the current block from L1 to L2
+
+Before running the scripts, make sure to set the following environment variables:
+
+- `ETH_RPC_URL_SEPOLIA`: RPC URL of a Sepolia network
+- `PRIVATE_KEY_SEPOLIA`: The private key of an account with sufficient Sepolia ETH to cover transaction fees.
+
+After setting the environment variables, execute the following command:
+
+```sh
+make send-current-beacon-root
+```

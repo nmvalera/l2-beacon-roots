@@ -20,18 +20,18 @@ make test
 make test-lint
 ```
 
-### Deploy
+### Deploy on Sepolia
 
-You need to define the following environment variable before running the scripts
+Before running the scripts, make sure to set the following environment variables:
 
-- `DEPLOYER_PRIVATE_KEY_SEPOLIA` the private key of an account with enough Sepolia ETH to cover deployment fees. Note that the deployment account has no ownership on the contracts deployed
-- `DEPLOYER_PRIVATE_KEY_OP_SEPOLIA` the private key of an account with enough Optimism Sepolia ETH to cover deployment fees. Note that the deployment account has no ownership on the contracts deployed
-- `ETHERSCAN_API_KEY_SEPOLIA` an Ethereum Etherscan API Key. Note: this is used for smart contract verification
-- `ETHERSCAN_API_KEY_OP_SEPOLIA` an Optimism Etherscan API Key. Note: this is used for smart contract verification
+- `ETH_RPC_URL_SEPOLIA`: The RPC URL for the Sepolia network.
+- `ETH_RPC_URL_OP_SEPOLIA`: The RPC URL for the Optimism Sepolia network.
+- `DEPLOYER_PRIVATE_KEY_SEPOLIA`: The private key of an account with sufficient Sepolia ETH to cover deployment fees. Note that this account will not retain ownership of the deployed contracts.
+- `DEPLOYER_PRIVATE_KEY_OP_SEPOLIA`: The private key of an account with sufficient Optimism Sepolia ETH to cover deployment fees. Note that this account will not retain ownership of the deployed contracts.
+- `ETHERSCAN_API_KEY_SEPOLIA`: The API key for Ethereum Etherscan. This is used for smart contract verification.
+- `ETHERSCAN_API_KEY_OP_SEPOLIA`: The API key for Optimism Etherscan. This is used for smart contract verification.
 
-#### Local
-
-To deploy the contracts in an ephemeral EVM instance, run
+After setting the environment variables, execute the following command:
 
 ```sh
 make deploy
