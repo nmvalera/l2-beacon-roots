@@ -7,7 +7,7 @@ import "./mocks/L2CrossDomainMessengerMock.sol";
 import "../src/L2BeaconRoots.sol";
 import "../src/L2BeaconRootsVerifier.sol";
 
-contract L1BeaconRootsSenderTest is Test {
+contract L2BeaconRootsVerifierTest is Test {
     // L2BeaconRoots instance
     L2BeaconRoots internal l2BeaconRoots;
     L2BeaconRootsVerifier internal l2BeaconRootsVerifier;
