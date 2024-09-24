@@ -1,0 +1,56 @@
+# L2BeaconRootsVerifier
+
+
+
+> L2BeaconRootsVerifier
+
+The L2BeaconRootsVerifier contract responsible for verifyring Beacon Block SSZ Merkle proofs
+
+
+
+## Methods
+
+### L2_BEACON_ROOTS
+
+```solidity
+function L2_BEACON_ROOTS() external view returns (contract L2BeaconRoots)
+```
+
+
+
+
+
+
+#### Returns
+
+| Name | Type | Description |
+|---|---|---|
+| _0 | contract L2BeaconRoots | undefined |
+
+### verify
+
+```solidity
+function verify(uint256 _timestamp, bytes32[] _proofs, bytes32 _withdrawalsRoot) external view returns (bool)
+```
+
+Verifies a Withdrawals Root Merkle proof for a given timestamp
+
+
+
+#### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| _timestamp | uint256 | : The timestamp of the Beacon Block |
+| _proofs | bytes32[] | : The Merkle proof |
+| _withdrawalsRoot | bytes32 | : The Withdrawals Root to verify |
+
+#### Returns
+
+| Name | Type | Description |
+|---|---|---|
+| _0 | bool | undefined |
+
+
+
+
