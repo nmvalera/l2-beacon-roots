@@ -118,3 +118,15 @@ should ouput
   ] // the proofs to prove the Merkle branch
 }
 ```
+
+## Verify Withdrawals Root on L2
+
+After successfully sending a Beacon Block root on the L2 and generating the corresponding proof.
+
+We can verify the withdral root on [Etherscan](https://sepolia-optimism.etherscan.io/address/0xe094C96145fe094D3Cb6bF05d8cFD08E92f11BE5#readContract)]
+![Verification on Etherscan](./docs/Etherscan%20Withdrawal%20Root%20Verification.png)
+
+Where
+
+- `_timestamp` and `_blockRoot` can be retrieved from the [events emitted by L2BeaconRoots](https://sepolia-optimism.etherscan.io/address/0xb53F763AB795e2A2C13613e25cc54939Ca01b4E1#events)
+- `_proofs` and `_withdrawlRoots` can be retrieved from the CLI proof generation for block `_blockRoot`
