@@ -35,26 +35,26 @@ type ProofMsg struct {
 }
 
 func NewApp() *cli.App {
+	client := new(beacon.BeaconClient)
 	return &cli.App{
-		Name: "kl2test",
+		Name: "beacon",
+		Flags: []cli.Flag{
+			BeaconURLFlag(),
+		},
+		Before: func(cCtx *cli.Context) (err error) {
+			client, err = beacon.NewBeaconClient(cCtx.String("beacon-url"))
+			return
+		},
 		Commands: []*cli.Command{
 			{
 				Name:        "generate-proof",
 				Description: "Generates SSZ proof for a beacon block",
-				Flags: []cli.Flag{
-					BeaconURLFlag(),
-				},
 				Action: func(cCtx *cli.Context) error {
 					blockId := ""
 					if cCtx.NArg() > 0 {
 						blockId = cCtx.Args().Get(0)
 					} else {
 						return fmt.Errorf("blockId is required")
-					}
-
-					client, err := beacon.NewBeaconClient(cCtx.String("beacon-url"))
-					if err != nil {
-						return err
 					}
 
 					block, err := client.GetBlock(cCtx.Context, blockId)
@@ -71,6 +71,7 @@ func NewApp() *cli.App {
 					if index == 0 {
 						index = ssz.WITHDRAWALS_ROOT_GENERAL_INDEX
 					}
+
 					proof, err := tree.Prove(index)
 					if err != nil {
 						return err
@@ -91,6 +92,26 @@ func NewApp() *cli.App {
 					if err != nil {
 						return err
 					}
+					return nil
+				},
+			},
+			{
+				Name:        "get-withdrawals-root",
+				Description: "Get withdrawals root for a beacon block",
+				Action: func(cCtx *cli.Context) error {
+					blockId := ""
+					if cCtx.NArg() > 0 {
+						blockId = cCtx.Args().Get(0)
+					} else {
+						return fmt.Errorf("blockId is required")
+					}
+
+					blindedBlock, err := client.GetBlindedBlock(cCtx.Context, blockId)
+					if err != nil {
+						return err
+					}
+
+					fmt.Fprintf(cCtx.App.Writer, "%v\n", hexutil.Encode(blindedBlock.Body.ExecutionPayloadHeader.WithdrawalsRoot))
 					return nil
 				},
 			},
