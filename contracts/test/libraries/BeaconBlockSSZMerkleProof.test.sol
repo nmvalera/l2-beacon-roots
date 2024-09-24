@@ -24,7 +24,7 @@ contract L1BeaconRootsSenderTest is Test {
         proof[10] = bytes32(uint256(0xf5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b));
         proof[11] = bytes32(uint256(0xef91c6e7d3789ed96c6659a2641987fdeefee8c3fd6812f74ceeb258a3ce1561));
 
-        bool isValid = BeaconBlockSSZMerkleProof.verifyWithdrawalsRootProof(withdrawalsRoot, proof, beaconRoot);
+        bool isValid = BeaconBlockSSZMerkleProof._verifyWithdrawalsRootProof(withdrawalsRoot, proof, beaconRoot);
         assertTrue(isValid);
     }
 }

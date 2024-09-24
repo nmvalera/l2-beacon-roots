@@ -16,8 +16,8 @@ library BeaconBlockSSZMerkleProof {
     /// @param _proofs: The Merkle proof
     /// @param _beaconRoot: The Beacon Root to verify against
     /// @return True if the proof is valid, false otherwise
-    function verifyWithdrawalsRootProof(bytes32 _withdrawalsRoot, bytes32[] memory _proofs, bytes32 _beaconRoot)
-        external
+    function _verifyWithdrawalsRootProof(bytes32 _withdrawalsRoot, bytes32[] memory _proofs, bytes32 _beaconRoot)
+        internal
         pure
         returns (bool)
     {
