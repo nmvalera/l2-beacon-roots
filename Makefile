@@ -1,4 +1,4 @@
-.PHONY: foundry install test test-lint lint deploy
+.PHONY: foundry install test test-lint lint deploy generate-proof
 
 # Install foundry
 foundry:
@@ -38,3 +38,7 @@ deploy:
 # Send Beacon Root from L1 to L2
 send-current-beacon-root:
 	@cast send --gas-limit 130000 --rpc-url ${ETH_RPC_URL_SEPOLIA} --private-key ${PRIVATE_KEY_SEPOLIA} 0x5cdF4C5cbe8b4412b319f5Ae28a77A7177B3adcA "sendCurrentBlockRoot()"
+
+# Generate SSZ Merkle proof for a beacon block
+generate-proof:
+	cd cli && go run . generate-proof $(BLOCK_ID) | jq
