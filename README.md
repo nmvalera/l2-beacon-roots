@@ -25,7 +25,7 @@ See [Contributing Guidelines](./CONTRIBUTING.md)
 
 ## Diagram
 
-![Architecture Diagram](./docs/Kraken%20Beacon%20Root%20Bridge%20Protocol%20v0.1.0.png)
+![Architecture Diagram](./docs/Kraken%20Beacon%20Root%20Bridge%20Protocol%20v1.0.0.png)
 
 ## Components
 
@@ -44,6 +44,10 @@ The CrossDomainMessenger contracts on both L1 and L2 chains serve as the OP offi
 ### L2BeaconRoots
 
 The contract on the L2 network responsible to store and provide access to the beacon block roots. It receives beacon roots from the L1BeaconRootsSender via the L2 CrossDomainMessenger, upon message relaying it stores the beacon block roots.
+
+### L2BeaconRootsVerifier
+
+A contract on the L2 network that exposes functions to verify SSZ Merkle proofs for beacon blocks. In particular, it enables to verify withdrawals root. It reads the beacon roots from the L2BeaconRoots contract and perform SSZ Merkle proofs verifications against those roots.
 
 ## Security Considerations
 
