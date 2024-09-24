@@ -28,6 +28,6 @@ contract L2BeaconRootsVerifier {
         require(_beaconRoot != bytes32(0), "L2BeaconRootsVerifier: Beacon root not found");
 
         // Verify the Withdrawals Root Merkle proof
-        return BeaconBlockSSZMerkleProof.verifyWithdrawalsRootProof(_withdrawalsRoot, _proofs, _beaconRoot);
+        return BeaconBlockSSZMerkleProof._verifyWithdrawalsRootProof(_withdrawalsRoot, _proofs, _beaconRoot);
     }
 }
