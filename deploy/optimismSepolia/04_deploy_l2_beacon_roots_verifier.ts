@@ -13,7 +13,7 @@ const func: DeployFunction = async function (l2Hre: HardhatRuntimeEnvironment) {
   // Retrieve L2BeaconRoots contract deployed on L2
   const l2BeaconRootsDeployment = await l2Hre.deployments.get('L2BeaconRoots');
   
-  const l2BeaconRootsVerifierDeployment = await deploy('L2BeaconRootsVerifier', {
+  const l2BeaconRootsVerifierDeployment = await deploy('BeaconRootsVerifier', {
     from: deployer,
     args: [l2BeaconRootsDeployment.address],
     log: true,
@@ -30,7 +30,7 @@ const func: DeployFunction = async function (l2Hre: HardhatRuntimeEnvironment) {
 
 func.skip = async function ({ deployments }: HardhatRuntimeEnvironment): Promise<boolean> {
   logStep(__filename);
-  const shouldSkip = await isDeployed("L2BeaconRootsVerifier", deployments, __filename);
+  const shouldSkip = await isDeployed("BeaconRootsVerifier", deployments, __filename);
   if (shouldSkip) {
     console.log("Skipped");
     logStepEnd(__filename);

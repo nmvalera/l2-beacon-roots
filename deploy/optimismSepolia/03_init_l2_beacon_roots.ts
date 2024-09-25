@@ -30,7 +30,7 @@ func.skip = async function ({ deployments, ethers }: HardhatRuntimeEnvironment):
     logStep(__filename);
     const l2BeaconRootsDeployment = await deployments.get("L2BeaconRoots");
     const l2BeaconRoots = new ethers.Contract(l2BeaconRootsDeployment.address, l2BeaconRootsDeployment.abi, ethers.provider);
-    const shouldSkip = (await l2BeaconRoots.L1_BEACON_ROOTS_SENDER()).toLowerCase() !== "0x0000000000000000000000000000000000000000";
+    const shouldSkip = (await l2BeaconRoots.getL1BeaconRootsSender()).toLowerCase() !== "0x0000000000000000000000000000000000000000";
    
     if (shouldSkip) {
       console.log("Skipped");

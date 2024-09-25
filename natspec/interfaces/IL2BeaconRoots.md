@@ -1,10 +1,10 @@
-# L2BeaconRoots
+# IL2BeaconRoots
 
 
 
-> L2BeaconRoots
+> IL2BeaconRoots
 
-The L2BeaconRoots contract stores the beacon chain block roots on the L2         It uses a ring buffer to store the block roots for up to the last 8191 beacon chain blocks
+The interface of the L2BeaconRoots contract stores the beacon chain block roots on the L2
 
 
 

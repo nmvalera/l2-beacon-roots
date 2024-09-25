@@ -1,0 +1,115 @@
+{
+  "address": "0x1487541081FCf46D2dF0d2A4B2b8eCcC64951f67",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_beaconRoots",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "getBeaconRoots",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_timestamp",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes32[]",
+          "name": "_proofs",
+          "type": "bytes32[]"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_withdrawalsRoot",
+          "type": "bytes32"
+        }
+      ],
+      "name": "verify",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x847399d6250d717c02dbb49b59e0f3d1b380e28a8a24a4b0e5ea39b2c6f25203",
+  "receipt": {
+    "to": null,
+    "from": "0xFD94B77dEf93B655b37F149d58cb3AD21743180F",
+    "contractAddress": "0x1487541081FCf46D2dF0d2A4B2b8eCcC64951f67",
+    "transactionIndex": 4,
+    "gasUsed": "300880",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x2bc99a501218828910495bd5442755163eccebb9070ea13b3b49329a30a64124",
+    "transactionHash": "0x847399d6250d717c02dbb49b59e0f3d1b380e28a8a24a4b0e5ea39b2c6f25203",
+    "logs": [],
+    "blockNumber": 17746215,
+    "cumulativeGasUsed": "584211",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x716d304cA10a4e8f418FeFC9c4E008EDDdd752bE"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "e2dbfeb055bcb7180044bb2e108cbea3",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_beaconRoots\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"getBeaconRoots\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_timestamp\",\"type\":\"uint256\"},{\"internalType\":\"bytes32[]\",\"name\":\"_proofs\",\"type\":\"bytes32[]\"},{\"internalType\":\"bytes32\",\"name\":\"_withdrawalsRoot\",\"type\":\"bytes32\"}],\"name\":\"verify\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"constructor\":{\"params\":{\"_beaconRoots\":\": The address of the L2BeaconRoots contract\"}},\"verify(uint256,bytes32[],bytes32)\":{\"params\":{\"_proofs\":\": The Merkle proof\",\"_timestamp\":\": The timestamp of the Beacon Block\",\"_withdrawalsRoot\":\": The Withdrawals Root to verify\"}}},\"title\":\"BeaconRootsVerifier\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"verify(uint256,bytes32[],bytes32)\":{\"notice\":\"Verifies a Withdrawals Root Merkle proof for a given timestamp\"}},\"notice\":\"The BeaconRootsVerifier contract responsible for verifyring Beacon Block SSZ Merkle proofs\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/src/BeaconRootsVerifier.sol\":\"BeaconRootsVerifier\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":100},\"remappings\":[],\"viaIR\":true},\"sources\":{\"contracts/src/BeaconRootsVerifier.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.20;\\n\\nimport \\\"./libraries/BeaconBlockSSZMerkleProof.sol\\\";\\nimport \\\"./libraries/BeaconRoots.sol\\\";\\nimport \\\"./interfaces/IBeaconRootsVerifier.sol\\\";\\n\\n/// @title BeaconRootsVerifier\\n/// @notice The BeaconRootsVerifier contract responsible for verifyring Beacon Block SSZ Merkle proofs\\ncontract BeaconRootsVerifier is IBeaconRootsVerifier {\\n    /// @notice The address of the BeaconRoots contract to retrieve Beacon Block roots from\\n    address internal immutable BEACON_ROOTS;\\n\\n    /// @param _beaconRoots: The address of the L2BeaconRoots contract\\n    constructor(address _beaconRoots) {\\n        BEACON_ROOTS = _beaconRoots;\\n    }\\n\\n    /// @inheritdoc IBeaconRootsVerifier\\n    function verify(uint256 _timestamp, bytes32[] memory _proofs, bytes32 _withdrawalsRoot)\\n        public\\n        view\\n        returns (bool)\\n    {\\n        // Retrieve the Beacon Root from L2BeaconRoots\\n        bytes32 _beaconRoot = _getBlockRoot(_timestamp);\\n        require(_beaconRoot != bytes32(0), \\\"L2BeaconRootsVerifier: Beacon root not found\\\");\\n\\n        // Verify the Withdrawals Root Merkle proof\\n        return BeaconBlockSSZMerkleProof._verifyWithdrawalsRootProof(_withdrawalsRoot, _proofs, _beaconRoot);\\n    }\\n\\n    /// @notice Retrieves a beacon block root from the official beacon roots contract (EIP-4788)\\n    /// @param _timestamp: The timestamp of the beacon chain block\\n    function _getBlockRoot(uint256 _timestamp) internal view returns (bytes32 blockRoot) {\\n        return BeaconRoots._get(BEACON_ROOTS, _timestamp);\\n    }\\n\\n    /// @inheritdoc IBeaconRootsVerifier\\n    function getBeaconRoots() external view returns (address) {\\n        return BEACON_ROOTS;\\n    }\\n}\\n\",\"keccak256\":\"0x9a5f59f7b2a914328cd02110b09715467504e1a8d8b2514d25e1f34dd59dd032\",\"license\":\"MIT\"},\"contracts/src/interfaces/IBeaconRootsVerifier.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.20;\\n\\n/// @title IBeaconRootsVerifier\\n/// @notice The interface of BeaconRootsVerifier  responsible for verifying Beacon Block SSZ Merkle proofs\\ninterface IBeaconRootsVerifier {\\n    /// @notice Verifies a Withdrawals Root Merkle proof for a given timestamp\\n    /// @param _timestamp: The timestamp of the Beacon Block\\n    /// @param _proofs: The Merkle proof\\n    /// @param _withdrawalsRoot: The Withdrawals Root to verify\\n    function verify(uint256 _timestamp, bytes32[] memory _proofs, bytes32 _withdrawalsRoot)\\n        external\\n        view\\n        returns (bool);\\n\\n    // @notice Returns the address of the BeaconRoots contract\\n    function getBeaconRoots() external view returns (address);\\n}\\n\",\"keccak256\":\"0xb339e41298d871a990fc8529c2c2cd246fb57616924df9c960f18d3edcef7621\",\"license\":\"MIT\"},\"contracts/src/libraries/BeaconBlockSSZMerkleProof.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.20;\\n\\nimport \\\"./SSZMerkleProof.sol\\\";\\n\\n/// @title BeaconBlockSSZMerkleProof\\n/// @notice Library for verifying Beacon Block SSZ Merkle proofs\\nlibrary BeaconBlockSSZMerkleProof {\\n    uint256 public constant WITHRAWAL_ROOT_GENERALIZED_INDEX = 0x192e;\\n\\n    /// @notice The depth of the Withdrawals Root in the Beacon Block SSZ Merkle tree\\n    uint256 public constant WITHRAWAL_ROOT_GENERALIZED_INDEX_DEPTH = 0xc;\\n\\n    /// @notice Verifies a Withdrawals Root Merkle proof\\n    /// @param _withdrawalsRoot: The Withdrawals Root to verify\\n    /// @param _proofs: The Merkle proof\\n    /// @param _beaconRoot: The Beacon Root to verify against\\n    /// @return True if the proof is valid, false otherwise\\n    function _verifyWithdrawalsRootProof(bytes32 _withdrawalsRoot, bytes32[] memory _proofs, bytes32 _beaconRoot)\\n        internal\\n        pure\\n        returns (bool)\\n    {\\n        require(_proofs.length == WITHRAWAL_ROOT_GENERALIZED_INDEX_DEPTH, \\\"L2BeaconRootVerifier: Invalid proof length\\\");\\n        return SSZMerkleProof._verify(_proofs, _beaconRoot, _withdrawalsRoot, WITHRAWAL_ROOT_GENERALIZED_INDEX);\\n    }\\n}\\n\",\"keccak256\":\"0xfa0a681b99f993a8eee6721ceabceb977cdffa1483779bdbc01b455b8f6d71f9\",\"license\":\"MIT\"},\"contracts/src/libraries/BeaconRoots.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.20;\\n\\n/// @title SSZMerkleProof\\n/// @notice Library for verifying SSZ Merkle proofs\\nlibrary BeaconRoots {\\n    function _get(address _beaconRoots, uint256 _timestamp) internal view returns (bytes32) {\\n        (bool success, bytes memory result) = _beaconRoots.staticcall(abi.encode(_timestamp));\\n        if (success && result.length > 0) {\\n            return abi.decode(result, (bytes32));\\n        } else {\\n            return bytes32(0);\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x7d8f1feb9418fb2678fb6ccd9562cec125d293e59ca65f265b188041b8708ea3\",\"license\":\"MIT\"},\"contracts/src/libraries/SSZMerkleProof.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.20;\\n\\n/// @title SSZMerkleProof\\n/// @notice Library for verifying SSZ Merkle proofs\\nlibrary SSZMerkleProof {\\n    /// @notice Verifies an SSZ Merkle proof for a branch\\n    /// @param _proofs: The Merkle proofs\\n    /// @param _root: The root hash to verify against\\n    /// @param _leaf: The leaf value to verify\\n    /// @param _index: The generalized index of the leaf in the SSZ tree\\n    function _verify(bytes32[] memory _proofs, bytes32 _root, bytes32 _leaf, uint256 _index)\\n        internal\\n        pure\\n        returns (bool)\\n    {\\n        return _processProof(_proofs, _leaf, _index) == _root;\\n    }\\n\\n    /// @notice Computes the root hash of a Merkle branch in a SSZ tree\\n    /// @param _proofs: The Merkle proofs\\n    /// @param _leaf: The leaf value\\n    /// @param _index: The generalized index of the leaf in the SSZ tree\\n    function _processProof(bytes32[] memory _proofs, bytes32 _leaf, uint256 _index) internal pure returns (bytes32) {\\n        // Compute the root hash of the Merkle branch\\n        bytes32 computedHash = _leaf;\\n        for (uint256 i = 0; i < _proofs.length; i++) {\\n            // if i-th bit of WITHRAWAL_ROOT_GENERALIZED_INDEX is set to 1,\\n            // then the computedHash is the right child\\n            // otherwise it is the left child\\n            if (_index & (1 << i) == (1 << i)) {\\n                computedHash = _efficientSha256(_proofs[i], computedHash);\\n            } else {\\n                computedHash = _efficientSha256(computedHash, _proofs[i]);\\n            }\\n        }\\n        return computedHash;\\n    }\\n\\n    function _efficientSha256(bytes32 a, bytes32 b) private pure returns (bytes32 value) {\\n        bytes memory pack = new bytes(64);\\n        assembly {\\n            mstore(add(pack, 32), a)\\n            mstore(add(pack, 64), b)\\n        }\\n        return sha256(pack);\\n    }\\n}\\n\",\"keccak256\":\"0x575a22fc8a8e1ac24ad9e7545386c38f5eeb31ca08733aa03fb9a60a53f9829d\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60a03461007157601f61050038819003918201601f19168301916001600160401b038311848410176100765780849260209460405283398101031261007157516001600160a01b038116810361007157608052604051610473908161008d8239608051818181610151015261018e0152f35b600080fd5b634e487b7160e01b600052604160045260246000fdfe6080604052600436101561001257600080fd5b6000803560e01c908163167580cc1461003a57506322a8735b1461003557600080fd5b61013b565b346100e45760603660031901126100e45760243567ffffffffffffffff918282116100e457366023830112156100e45781600401359283116100e7578260051b6040519260209461008d86840186610119565b8452602485850192820101923684116100e45750602401905b8282106100d5576100d16100bf60443586600435610185565b60405190151581529081906020820190565b0390f35b813581529084019084016100a6565b80fd5b634e487b7160e01b600052604160045260246000fd5b6040810190811067ffffffffffffffff8211176100e757604052565b90601f8019910116810190811067ffffffffffffffff8211176100e757604052565b34610180576000366003190112610180576040517f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03168152602090f35b600080fd5b6101b2909392937f0000000000000000000000000000000000000000000000000000000000000000610305565b92831561029c57600c825103610244579060009283925b825184101561023a576001841b8061192e161460001461021f576101f7906101f18585610396565b516103c0565b925b600019811461020b57600101926101c9565b634e487b7160e01b85526011600452602485fd5b6102349061022d8585610396565b51906103c0565b926101f9565b9250939250501490565b60405162461bcd60e51b815260206004820152602a60248201527f4c32426561636f6e526f6f7456657269666965723a20496e76616c69642070726044820152690dedecc40d8cadccee8d60b31b6064820152608490fd5b60405162461bcd60e51b815260206004820152602c60248201527f4c32426561636f6e526f6f747356657269666965723a20426561636f6e20726f60448201526b1bdd081b9bdd08199bdd5b9960a21b6064820152608490fd5b90816020910312610180575190565b6000809160405193602094858101918252858152610322816100fd565b51915afa3d1561038e573d9067ffffffffffffffff82116100e75760405191610354601f8201601f1916850184610119565b82523d60008484013e5b80610384575b1561037d578161037a92825183010191016102f6565b90565b5050600090565b5080511515610364565b60609061035e565b80518210156103aa5760209160051b010190565b634e487b7160e01b600052603260045260246000fd5b6040918251906060820182811067ffffffffffffffff8211176100e75784528382526020928383018536823752838201528251908051908360005b83811061042b5750505090806000928101838152039060025afa15610421575060005190565b513d6000823e3d90fd5b818184010151818601520184906103fb56fea2646970667358221220d5389fdba8e00b0593546c3ee217fa86b41dc526ba3f16471e3333c2736dc87d64736f6c63430008140033",
+  "deployedBytecode": "0x6080604052600436101561001257600080fd5b6000803560e01c908163167580cc1461003a57506322a8735b1461003557600080fd5b61013b565b346100e45760603660031901126100e45760243567ffffffffffffffff918282116100e457366023830112156100e45781600401359283116100e7578260051b6040519260209461008d86840186610119565b8452602485850192820101923684116100e45750602401905b8282106100d5576100d16100bf60443586600435610185565b60405190151581529081906020820190565b0390f35b813581529084019084016100a6565b80fd5b634e487b7160e01b600052604160045260246000fd5b6040810190811067ffffffffffffffff8211176100e757604052565b90601f8019910116810190811067ffffffffffffffff8211176100e757604052565b34610180576000366003190112610180576040517f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03168152602090f35b600080fd5b6101b2909392937f0000000000000000000000000000000000000000000000000000000000000000610305565b92831561029c57600c825103610244579060009283925b825184101561023a576001841b8061192e161460001461021f576101f7906101f18585610396565b516103c0565b925b600019811461020b57600101926101c9565b634e487b7160e01b85526011600452602485fd5b6102349061022d8585610396565b51906103c0565b926101f9565b9250939250501490565b60405162461bcd60e51b815260206004820152602a60248201527f4c32426561636f6e526f6f7456657269666965723a20496e76616c69642070726044820152690dedecc40d8cadccee8d60b31b6064820152608490fd5b60405162461bcd60e51b815260206004820152602c60248201527f4c32426561636f6e526f6f747356657269666965723a20426561636f6e20726f60448201526b1bdd081b9bdd08199bdd5b9960a21b6064820152608490fd5b90816020910312610180575190565b6000809160405193602094858101918252858152610322816100fd565b51915afa3d1561038e573d9067ffffffffffffffff82116100e75760405191610354601f8201601f1916850184610119565b82523d60008484013e5b80610384575b1561037d578161037a92825183010191016102f6565b90565b5050600090565b5080511515610364565b60609061035e565b80518210156103aa5760209160051b010190565b634e487b7160e01b600052603260045260246000fd5b6040918251906060820182811067ffffffffffffffff8211176100e75784528382526020928383018536823752838201528251908051908360005b83811061042b5750505090806000928101838152039060025afa15610421575060005190565b513d6000823e3d90fd5b818184010151818601520184906103fb56fea2646970667358221220d5389fdba8e00b0593546c3ee217fa86b41dc526ba3f16471e3333c2736dc87d64736f6c63430008140033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "constructor": {
+        "params": {
+          "_beaconRoots": ": The address of the L2BeaconRoots contract"
+        }
+      },
+      "verify(uint256,bytes32[],bytes32)": {
+        "params": {
+          "_proofs": ": The Merkle proof",
+          "_timestamp": ": The timestamp of the Beacon Block",
+          "_withdrawalsRoot": ": The Withdrawals Root to verify"
+        }
+      }
+    },
+    "title": "BeaconRootsVerifier",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "verify(uint256,bytes32[],bytes32)": {
+        "notice": "Verifies a Withdrawals Root Merkle proof for a given timestamp"
+      }
+    },
+    "notice": "The BeaconRootsVerifier contract responsible for verifyring Beacon Block SSZ Merkle proofs",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}

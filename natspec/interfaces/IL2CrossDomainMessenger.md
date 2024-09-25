@@ -4,7 +4,7 @@
 
 > IL2CrossDomainMessenger
 
-Interface for the OP L2CrossDomainMessenger contract
+Interface for the OP CrossDomainMessenger contract on L2
 
 
 

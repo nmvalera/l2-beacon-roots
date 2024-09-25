@@ -16,9 +16,9 @@ See [Contributing Guidelines](./CONTRIBUTING.md)
 
 | Contract | Optimism Sepolia (L2) | Sepolia (L1) |
 |-|-|-|
-| [L2BeaconRootsVerifier](./contracts/src/L2BeaconRootsVerifier.sol) | [0xe094C96145fe094D3Cb6bF05d8cFD08E92f11BE5](https://sepolia-optimism.etherscan.io/address/0xe094C96145fe094D3Cb6bF05d8cFD08E92f11BE5) | |
-| [L2BeaconRoots](./contracts/src/L2BeaconRoots.sol) | [0xb53F763AB795e2A2C13613e25cc54939Ca01b4E1](https://sepolia-optimism.etherscan.io/address/0xb53F763AB795e2A2C13613e25cc54939Ca01b4E1) | |
-| [L1BeaconRootsSender](./contracts/src/L1BeaconRootsSender.sol) | | [0x5cdF4C5cbe8b4412b319f5Ae28a77A7177B3adcA](https://sepolia.etherscan.io/address/0x5cdF4C5cbe8b4412b319f5Ae28a77A7177B3adcA) |
+| [BeaconRootsVerifier](./contracts/src/L2BeaconRootsVerifier.sol) | [0x1487541081FCf46D2dF0d2A4B2b8eCcC64951f67](https://sepolia-optimism.etherscan.io/address/0x1487541081FCf46D2dF0d2A4B2b8eCcC64951f67) | |
+| [L2BeaconRoots](./contracts/src/L2BeaconRoots.sol) | [0x716d304cA10a4e8f418FeFC9c4E008EDDdd752bE](https://sepolia-optimism.etherscan.io/address/0x716d304cA10a4e8f418FeFC9c4E008EDDdd752bE) | |
+| [L1BeaconRootsSender](./contracts/src/L1BeaconRootsSender.sol) | | [0xB5c70f0CD8Ca5738E555FB76E9f1B82BF254fc5b](https://sepolia.etherscan.io/address/0xB5c70f0CD8Ca5738E555FB76E9f1B82BF254fc5b) |
 
 # Architecture Overview
 
@@ -121,11 +121,11 @@ should ouput
 
 After successfully sending a Beacon Block root on the L2 and generating the corresponding proof.
 
-We can verify the withdral root on [Etherscan](https://sepolia-optimism.etherscan.io/address/0xe094C96145fe094D3Cb6bF05d8cFD08E92f11BE5#readContract)]
+We can verify the withdral root on [Etherscan](https://sepolia-optimism.etherscan.io/address/0x1487541081FCf46D2dF0d2A4B2b8eCcC64951f67#readContract)]
 
 ![Verification on Etherscan](./docs/Etherscan%20Withdrawal%20Root%20Verification.png)
 
 Where
 
-- `_timestamp` and `_blockRoot` can be retrieved from the [events emitted by L2BeaconRoots](https://sepolia-optimism.etherscan.io/address/0xb53F763AB795e2A2C13613e25cc54939Ca01b4E1#events)
+- `_timestamp` and `_blockRoot` can be retrieved from the [events emitted by L2BeaconRoots](https://sepolia-optimism.etherscan.io/address/0x716d304cA10a4e8f418FeFC9c4E008EDDdd752bE#events)
 - `_proofs` and `_withdrawlRoots` can be retrieved from the CLI proof generation for block `_blockRoot`
