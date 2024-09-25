@@ -2,6 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "./libraries/BeaconRoots.sol";
+import "./state/BeaconRootsRingTracker.sol";
 import "./interfaces/IL1CrossDomainMessenger.sol";
 import "./interfaces/IL1BeaconRootsSender.sol";
 import "./interfaces/IL2BeaconRoots.sol";
@@ -27,7 +28,8 @@ contract L1BeaconRootsSender is IL1BeaconRootsSender {
     uint256 internal constant BEACON_SECONDS_PER_SLOT = 12;
 
     /// @notice The required gas limit for executing the set function on the L2BeaconRoots contract
-    uint32 internal constant L2_BEACON_ROOTS_SET_GAS_LIMIT = 27_000;
+    uint32 internal constant L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT = 50_000;
+    uint32 internal constant L2_BEACON_ROOTS_SET_WHEN_WARM_GAS_LIMIT = 5_000;
 
     constructor(address _messenger, address _l2BeaconRoots) {
         MESSENGER = _messenger;
@@ -77,11 +79,21 @@ contract L1BeaconRootsSender is IL1BeaconRootsSender {
     /// @param _timestamp: The timestamp of the beacon chain block
     /// @param _beaconRoot: The beacon chain block root at the given timestamp
     function _send(uint256 _timestamp, bytes32 _beaconRoot) internal {
+        // Check if the beacon root is already set in buffer for the given timestamp on the L2
+        // This allows to determine the gas limit required for the L2BeaconRoots.set function
+        // It assumes that messages are always relayed successfully
+        bool isToBeSet = BeaconRootsRingTracker._setIfNotSet(_timestamp % BEACON_ROOTS_HISTORY_BUFFER_LENGTH);
+
+        uint32 gasLimit = L2_BEACON_ROOTS_SET_WHEN_WARM_GAS_LIMIT;
+        if (isToBeSet) {
+            gasLimit = L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT;
+        } 
+
         // Send the block root to the L2
         IL1CrossDomainMessenger(MESSENGER).sendMessage(
             address(L2_BEACON_ROOTS),
             abi.encodeCall(IL2BeaconRoots.set, (_timestamp, _beaconRoot)),
-            L2_BEACON_ROOTS_SET_GAS_LIMIT
+            gasLimit
         );
 
         // Emit BlockRootSent event

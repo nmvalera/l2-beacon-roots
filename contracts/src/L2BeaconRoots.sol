@@ -4,6 +4,7 @@ pragma solidity ^0.8.20;
 import "./interfaces/IL2CrossDomainMessenger.sol";
 import "./interfaces/IL1BeaconRootsSender.sol";
 import "./interfaces/IL2BeaconRoots.sol";
+import "./state/BeaconRootsBuffer.sol";
 
 /// @title L2BeaconRoots
 /// @notice The L2BeaconRoots contract stores the beacon chain block roots on the L2
@@ -13,9 +14,6 @@ contract L2BeaconRoots is IL2BeaconRoots {
 
     /// @notice The L1BeaconRootsSender contract on the L1
     address internal L1_BEACON_ROOTS_SENDER;
-
-    /// @notice The beacon chain block roots stored by timestamps
-    mapping(uint256 => bytes32) internal beaconRoots;
 
     /// @param _messenger: The address of the L2 CrossDomainMessenger contract
     constructor(address _messenger) {
@@ -38,9 +36,7 @@ contract L2BeaconRoots is IL2BeaconRoots {
             "BeaconRoots: Remote sender must be the Beacon Roots Sender contract"
         );
 
-        beaconRoots[_beaconTimestamp] = _beaconRoot;
-
-        emit BeaconRootSet(_beaconTimestamp, _beaconRoot);
+        _set(_beaconTimestamp, _beaconRoot);
     }
 
     /// @inheritdoc IL2BeaconRoots
@@ -56,6 +52,15 @@ contract L2BeaconRoots is IL2BeaconRoots {
     /// @inheritdoc IL2BeaconRoots
     function getL1BeaconRootsSender() external view returns (address) {
         return L1_BEACON_ROOTS_SENDER;
+    }
+
+    function _set(uint256 _beaconTimestamp, bytes32 _beaconRoot) internal {
+        BeaconRootsBuffer._set(_beaconTimestamp, _beaconRoot);
+        emit BeaconRootSet(_beaconTimestamp, _beaconRoot);
+    }
+
+    function _get(uint256 _beaconTimestamp) internal view returns (bytes32) {
+        return BeaconRootsBuffer._get(_beaconTimestamp);
     }
 
     fallback() external {
@@ -75,9 +80,5 @@ contract L2BeaconRoots is IL2BeaconRoots {
             mstore(0, beaconRoot)
             return(0, 32)
         }
-    }
-
-    function _get(uint256 _beacon_timestamp) internal view returns (bytes32) {
-        return beaconRoots[_beacon_timestamp];
     }
 }

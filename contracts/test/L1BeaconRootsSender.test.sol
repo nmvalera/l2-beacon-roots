@@ -24,7 +24,9 @@ contract L1BeaconRootsSenderTest is Test {
     address internal constant BEACON_ROOTS_ADDRESS = 0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02;
     uint256 internal constant BEACON_ROOTS_HISTORY_BUFFER_LENGTH = 8191;
     uint256 internal constant BEACON_SECONDS_PER_SLOT = 12;
-    uint32 internal constant L2_BEACON_ROOTS_SET_GAS_LIMIT = 27_000;
+    
+    uint32 internal constant L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT = 50_000;
+    uint32 internal constant L2_BEACON_ROOTS_SET_WHEN_WARM_GAS_LIMIT = 5_000;
 
     function setUp() public {
         l1CrossDomainMessengerMock = new L1CrossDomainMessengerMock();
@@ -41,7 +43,7 @@ contract L1BeaconRootsSenderTest is Test {
         beaconRootsMock.givenTimespampReturn(_timestamp, _root);
     }
 
-    function test_sendBlockRoot() public {
+    function test_sendBlockRoot_whenCold() public {
         vm.warp(2000);
         uint256 timestamp = 1000;
         bytes32 root = bytes32(uint256(0x1234));
@@ -52,12 +54,39 @@ contract L1BeaconRootsSenderTest is Test {
         vm.expectEmit(true, true, true, true, address(l1CrossDomainMessengerMock));
         bytes memory message =
             hex"64c4ef1a00000000000000000000000000000000000000000000000000000000000003e80000000000000000000000000000000000000000000000000000000000001234";
-        emit L1CrossDomainMessengerMock.MessageSent(l2BeaconRootsAddress, message, L2_BEACON_ROOTS_SET_GAS_LIMIT);
+        emit L1CrossDomainMessengerMock.MessageSent(l2BeaconRootsAddress, message, L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT);
 
         vm.expectEmit(true, true, true, true, address(l1BeaconRootsSender));
         emit IL1BeaconRootsSender.BlockRootSent(1000, bytes32(uint256(0x1234)));
 
         // Send the current block root
+        l1BeaconRootsSender.sendBlockRoot(timestamp);
+    }
+
+    function test_sendBlockRoot_whenWarm() public {
+        // Perform a first cold send
+        vm.warp(2000);
+        uint256 timestamp = 1000;
+        
+        bytes32 root = bytes32(uint256(0x1234));
+        _setMockedBeaconRootForTimestamp(timestamp, root);
+        l1BeaconRootsSender.sendBlockRoot(timestamp);
+
+        // Perform a second warm send
+        vm.warp(2000 + BEACON_ROOTS_HISTORY_BUFFER_LENGTH * BEACON_SECONDS_PER_SLOT);
+        timestamp += BEACON_ROOTS_HISTORY_BUFFER_LENGTH * BEACON_SECONDS_PER_SLOT;
+
+        root = bytes32(uint256(0x1235));
+        _setMockedBeaconRootForTimestamp(timestamp, root);
+
+        vm.expectEmit(true, true, true, true, address(l1CrossDomainMessengerMock));
+        bytes memory message =
+            hex"64c4ef1a00000000000000000000000000000000000000000000000000000000000183dc0000000000000000000000000000000000000000000000000000000000001235";
+        emit L1CrossDomainMessengerMock.MessageSent(l2BeaconRootsAddress, message, L2_BEACON_ROOTS_SET_WHEN_WARM_GAS_LIMIT);
+
+        vm.expectEmit(true, true, true, true, address(l1BeaconRootsSender));
+        emit IL1BeaconRootsSender.BlockRootSent(timestamp, bytes32(uint256(0x1235)));
+
         l1BeaconRootsSender.sendBlockRoot(timestamp);
     }
 
@@ -71,7 +100,7 @@ contract L1BeaconRootsSenderTest is Test {
         vm.expectEmit(true, true, true, true, address(l1CrossDomainMessengerMock));
         bytes memory message =
             hex"64c4ef1a00000000000000000000000000000000000000000000000000000000000003e80000000000000000000000000000000000000000000000000000000000001234";
-        emit L1CrossDomainMessengerMock.MessageSent(l2BeaconRootsAddress, message, L2_BEACON_ROOTS_SET_GAS_LIMIT);
+        emit L1CrossDomainMessengerMock.MessageSent(l2BeaconRootsAddress, message, L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT);
 
         vm.expectEmit(true, true, true, true, address(l1BeaconRootsSender));
         emit IL1BeaconRootsSender.BlockRootSent(1000, bytes32(uint256(0x1234)));
