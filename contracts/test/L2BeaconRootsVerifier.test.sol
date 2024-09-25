@@ -32,7 +32,7 @@ contract L2BeaconRootsVerifierTest is Test {
     function setMockBeaconRootForTimestamp(uint256 _timestamp, bytes32 _root) internal {
         bytes memory message = abi.encodeWithSignature("set(uint256,bytes32)", _timestamp, _root);
         vm.expectEmit(true, true, true, true, address(l2BeaconRoots));
-        emit L2BeaconRoots.BeaconRootSet(_timestamp, _root);
+        emit IL2BeaconRoots.BeaconRootSet(_timestamp, _root);
 
         vm.expectEmit(true, true, true, true, address(l2CrossDomainMessengerMock));
         bytes32 messageHash = keccak256(

@@ -6,6 +6,7 @@ import "forge-std/Test.sol";
 import "./mocks/L2CrossDomainMessengerMock.sol";
 
 import "../src/L2BeaconRoots.sol";
+import "../src/interfaces/IL2BeaconRoots.sol";
 
 contract L1BeaconRootsSenderTest is Test {
     // L1BeaconRootsSender instance
@@ -34,7 +35,7 @@ contract L1BeaconRootsSenderTest is Test {
             hex"64c4ef1a00000000000000000000000000000000000000000000000000000000000003e80000000000000000000000000000000000000000000000000000000000001234";
 
         vm.expectEmit(true, true, true, true, address(l2BeaconRoots));
-        emit L2BeaconRoots.BeaconRootSet(timestamp, root);
+        emit IL2BeaconRoots.BeaconRootSet(timestamp, root);
 
         vm.expectEmit(true, true, true, true, address(l2CrossDomainMessengerMock));
         bytes32 messageHash = keccak256(
