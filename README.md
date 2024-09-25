@@ -1,8 +1,6 @@
-# Kraken L2 Test
+# L2 Beacon Roots
 
-> **Note:** This is a take-home exercise for the Senior On-Chain Protocol Engineer position at Kraken (c.f. [guidelines](./docs/Protocol%20Engineer%20Take%20Home%20Test%20-%20Beacon%20Block%20Root%20on%20L2.pdf))
-
-The Kraken L2 Test protocol exposes the L1 beacon chain block root within any L2 OP chain, enabling beacon chain data validation directly on L2.
+The L2 Beacon Roots protocol exposes the L1 beacon chain block root within any L2 OP chain, enabling beacon chain data validation directly on L2.
 
 By making the beacon chain root accessible on L2, it provides trust-minimized access to specific L1 beacon chain data directly on L2. This allows L2 contracts to securely interact with and manage L1 beacon chain data.
 
@@ -26,7 +24,7 @@ See [Contributing Guidelines](./CONTRIBUTING.md)
 
 ## Diagram
 
-![Architecture Diagram](./docs/Kraken%20Beacon%20Root%20Bridge%20Protocol%20v1.0.0.png)
+![Architecture Diagram](./docs/L2%20Beacon%20Root%20Protocol%20v1.0.0.png)
 
 ## Components
 
@@ -124,6 +122,7 @@ should ouput
 After successfully sending a Beacon Block root on the L2 and generating the corresponding proof.
 
 We can verify the withdral root on [Etherscan](https://sepolia-optimism.etherscan.io/address/0xe094C96145fe094D3Cb6bF05d8cFD08E92f11BE5#readContract)]
+
 ![Verification on Etherscan](./docs/Etherscan%20Withdrawal%20Root%20Verification.png)
 
 Where

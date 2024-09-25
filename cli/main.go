@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/nmvalera/kraken-l2-test/app"
+	"github.com/nmvalera/l2-beacon-roots/app"
 )
 
 func main() {
