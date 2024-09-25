@@ -6,6 +6,7 @@ import "forge-std/Test.sol";
 import "./mocks/BeaconRootsMock.sol";
 import "./mocks/L1CrossDomainMessengerMock.sol";
 
+import "../src/interfaces/IL1BeaconRootsSender.sol";
 import "../src/L1BeaconRootsSender.sol";
 
 contract L1BeaconRootsSenderTest is Test {
@@ -54,7 +55,7 @@ contract L1BeaconRootsSenderTest is Test {
         emit L1CrossDomainMessengerMock.MessageSent(l2BeaconRootsAddress, message, L2_BEACON_ROOTS_SET_GAS_LIMIT);
 
         vm.expectEmit(true, true, true, true, address(l1BeaconRootsSender));
-        emit L1BeaconRootsSender.BlockRootSent(1000, bytes32(uint256(0x1234)));
+        emit IL1BeaconRootsSender.BlockRootSent(1000, bytes32(uint256(0x1234)));
 
         // Send the current block root
         l1BeaconRootsSender.sendBlockRoot(timestamp);
@@ -73,7 +74,7 @@ contract L1BeaconRootsSenderTest is Test {
         emit L1CrossDomainMessengerMock.MessageSent(l2BeaconRootsAddress, message, L2_BEACON_ROOTS_SET_GAS_LIMIT);
 
         vm.expectEmit(true, true, true, true, address(l1BeaconRootsSender));
-        emit L1BeaconRootsSender.BlockRootSent(1000, bytes32(uint256(0x1234)));
+        emit IL1BeaconRootsSender.BlockRootSent(1000, bytes32(uint256(0x1234)));
 
         // Send the current block root
         l1BeaconRootsSender.sendCurrentBlockRoot();
@@ -83,7 +84,7 @@ contract L1BeaconRootsSenderTest is Test {
         vm.warp(1000);
         uint256 timestamp = 2000;
 
-        vm.expectRevert(L1BeaconRootsSender.TimestampInTheFuture.selector);
+        vm.expectRevert(IL1BeaconRootsSender.TimestampInTheFuture.selector);
         // Send the current block root
         l1BeaconRootsSender.sendBlockRoot(timestamp);
     }
@@ -92,7 +93,7 @@ contract L1BeaconRootsSenderTest is Test {
         vm.warp(1001 + BEACON_ROOTS_HISTORY_BUFFER_LENGTH * BEACON_SECONDS_PER_SLOT);
         uint256 timestamp = 1000;
 
-        vm.expectRevert(L1BeaconRootsSender.TimestampOutOfRing.selector);
+        vm.expectRevert(IL1BeaconRootsSender.TimestampOutOfRing.selector);
         // Send the current block root
         l1BeaconRootsSender.sendBlockRoot(timestamp);
     }
@@ -101,7 +102,7 @@ contract L1BeaconRootsSenderTest is Test {
         vm.warp(2000);
         uint256 timestamp = 1000;
 
-        vm.expectRevert(L1BeaconRootsSender.BeaconRootMissing.selector);
+        vm.expectRevert(IL1BeaconRootsSender.BeaconRootMissing.selector);
 
         // Send the current block root
         l1BeaconRootsSender.sendBlockRoot(timestamp);
