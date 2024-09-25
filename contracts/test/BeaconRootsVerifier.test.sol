@@ -5,12 +5,12 @@ import "forge-std/Test.sol";
 
 import "./mocks/L2CrossDomainMessengerMock.sol";
 import "../src/L2BeaconRoots.sol";
-import "../src/L2BeaconRootsVerifier.sol";
+import "../src/BeaconRootsVerifier.sol";
 
 contract L2BeaconRootsVerifierTest is Test {
     // L2BeaconRoots instance
     L2BeaconRoots internal l2BeaconRoots;
-    L2BeaconRootsVerifier internal l2BeaconRootsVerifier;
+    BeaconRootsVerifier internal l2BeaconRootsVerifier;
 
     // Mocks
     L2CrossDomainMessengerMock internal l2CrossDomainMessengerMock;
@@ -26,7 +26,7 @@ contract L2BeaconRootsVerifierTest is Test {
         l1BeaconRootsSender = makeAddr("l1BeaconRootsSender");
         l2BeaconRoots = new L2BeaconRoots(address(l2CrossDomainMessengerMock));
         l2BeaconRoots.init(address(l1BeaconRootsSender));
-        l2BeaconRootsVerifier = new L2BeaconRootsVerifier(address(l2BeaconRoots));
+        l2BeaconRootsVerifier = new BeaconRootsVerifier(address(l2BeaconRoots));
     }
 
     function setMockBeaconRootForTimestamp(uint256 _timestamp, bytes32 _root) internal {

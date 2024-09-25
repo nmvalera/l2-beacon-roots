@@ -67,15 +67,14 @@ contract L2BeaconRoots is IL2BeaconRoots {
         assembly {
             beaconTimestamp := calldataload(0)
         }
-        
+
         bytes32 beaconRoot = _get(beaconTimestamp);
-        
+
         // Return the beacon root
         assembly {
             mstore(0, beaconRoot)
             return(0, 32)
         }
-
     }
 
     function _get(uint256 _beacon_timestamp) internal view returns (bytes32) {
