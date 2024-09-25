@@ -4,7 +4,7 @@
 
 > IL1CrossDomainMessenger
 
-Interface for the OP L1CrossDomainMessenger contract
+Interface of the OP CrossDomainMessenger contract on the L1
 
 
 

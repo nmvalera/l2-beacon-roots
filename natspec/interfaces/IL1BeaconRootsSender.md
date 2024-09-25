@@ -1,8 +1,8 @@
-# L1BeaconRootsSender
+# IL1BeaconRootsSender
 
 
 
-> L1BeaconRootsSender
+> IL1BeaconRootsSender
 
 The L1BeaconRootsSender contract sends the beacon chain block roots to the L2BeaconRoots contract on the L2
 

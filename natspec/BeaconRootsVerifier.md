@@ -1,19 +1,19 @@
-# L2BeaconRootsVerifier
+# BeaconRootsVerifier
 
 
 
-> L2BeaconRootsVerifier
+> BeaconRootsVerifier
 
-The L2BeaconRootsVerifier contract responsible for verifyring Beacon Block SSZ Merkle proofs
+The BeaconRootsVerifier contract responsible for verifyring Beacon Block SSZ Merkle proofs
 
 
 
 ## Methods
 
-### L2_BEACON_ROOTS
+### getBeaconRoots
 
 ```solidity
-function L2_BEACON_ROOTS() external view returns (contract L2BeaconRoots)
+function getBeaconRoots() external view returns (address)
 ```
 
 
@@ -25,7 +25,7 @@ function L2_BEACON_ROOTS() external view returns (contract L2BeaconRoots)
 
 | Name | Type | Description |
 |---|---|---|
-| _0 | contract L2BeaconRoots | undefined |
+| _0 | address | undefined |
 
 ### verify
 
