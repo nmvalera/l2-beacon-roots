@@ -89,4 +89,21 @@ contract L1BeaconRootsSenderTest is Test {
         l2CrossDomainMessengerMock.relayMessage(address(l2BeaconRoots), 20_000, message);
         vm.stopPrank();
     }
+
+    function test_fallback() public {
+        uint256 timestamp = 1000;
+        bytes32 root = bytes32(uint256(0x1234));
+        bytes memory message =
+            hex"64c4ef1a00000000000000000000000000000000000000000000000000000000000003e80000000000000000000000000000000000000000000000000000000000001234";
+
+        // Relay the message from the L1BeaconRootsSender remote contract
+        vm.startPrank(l1BeaconRootsSender);
+        l2CrossDomainMessengerMock.relayMessage(address(l2BeaconRoots), L2_BEACON_ROOTS_SET_GAS_LIMIT, message);
+        vm.stopPrank();
+
+        // Check that the beacon root was set
+        (bool success, bytes memory result) = address(l2BeaconRoots).staticcall(abi.encode(timestamp));
+        assertTrue(success);
+        assertTrue(abi.decode(result, (bytes32)) == root);
+    }
 }
