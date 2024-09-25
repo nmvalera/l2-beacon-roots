@@ -1,4 +1,4 @@
-module github.com/nmvalera/kraken-l2-test
+module github.com/nmvalera/l2-beacon-roots
 
 go 1.22
 

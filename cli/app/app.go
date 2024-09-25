@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/nmvalera/kraken-l2-test/beacon"
-	"github.com/nmvalera/kraken-l2-test/ssz"
+	"github.com/nmvalera/l2-beacon-roots/beacon"
+	"github.com/nmvalera/l2-beacon-roots/ssz"
 	"github.com/urfave/cli/v2"
 )
 
