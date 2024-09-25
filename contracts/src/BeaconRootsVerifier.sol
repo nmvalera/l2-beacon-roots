@@ -8,6 +8,7 @@ import "./interfaces/IBeaconRootsVerifier.sol";
 /// @title BeaconRootsVerifier
 /// @notice The BeaconRootsVerifier contract responsible for verifyring Beacon Block SSZ Merkle proofs
 contract BeaconRootsVerifier is IBeaconRootsVerifier {
+    /// @notice The address of the BeaconRoots contract to retrieve Beacon Block roots from
     address internal immutable BEACON_ROOTS;
 
     /// @param _beaconRoots: The address of the L2BeaconRoots contract

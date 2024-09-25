@@ -8,6 +8,7 @@ import "./state/BeaconRootsBuffer.sol";
 
 /// @title L2BeaconRoots
 /// @notice The L2BeaconRoots contract stores the beacon chain block roots on the L2
+///         It uses a ring buffer to store the block roots for up to the last 8191 beacon chain blocks
 contract L2BeaconRoots is IL2BeaconRoots {
     /// @notice The L1CrossDomainMessenger contract
     address internal immutable MESSENGER;
@@ -54,15 +55,22 @@ contract L2BeaconRoots is IL2BeaconRoots {
         return L1_BEACON_ROOTS_SENDER;
     }
 
+    /// @notice Set a beacon block root
+    /// @param _beaconTimestamp: The timestamp of the beacon block
     function _set(uint256 _beaconTimestamp, bytes32 _beaconRoot) internal {
         BeaconRootsBuffer._set(_beaconTimestamp, _beaconRoot);
         emit BeaconRootSet(_beaconTimestamp, _beaconRoot);
     }
 
+    /// @notice Retrieves a beacon block root
+    /// @param _beaconTimestamp: The timestamp of the beacon block
     function _get(uint256 _beaconTimestamp) internal view returns (bytes32) {
         return BeaconRootsBuffer._get(_beaconTimestamp);
     }
 
+    /// @notice Fallback function mirorring the official BeaconRoots contract (EIP-4788)
+    /// @notice It expects calldata to be a beacon root timestamp encoded on 32 bytes and
+    ///         it returns a bytes32 beacon root
     fallback() external {
         // If calldata is not 32 bytes long, revert
         require(msg.data.length == 32, "BeaconRoots: Invalid function selector");
@@ -73,6 +81,7 @@ contract L2BeaconRoots is IL2BeaconRoots {
             beaconTimestamp := calldataload(0)
         }
 
+        // Retrieve the beacon root
         bytes32 beaconRoot = _get(beaconTimestamp);
 
         // Return the beacon root

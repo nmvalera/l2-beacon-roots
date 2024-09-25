@@ -27,10 +27,16 @@ contract L1BeaconRootsSender is IL1BeaconRootsSender {
     /// @notice The number of seconds per slot in the beacon chain (12 seconds)
     uint256 internal constant BEACON_SECONDS_PER_SLOT = 12;
 
-    /// @notice The required gas limit for executing the set function on the L2BeaconRoots contract
-    uint32 internal constant L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT = 50_000;
-    uint32 internal constant L2_BEACON_ROOTS_SET_WHEN_WARM_GAS_LIMIT = 5_000;
+    /// @notice The gas limit required for executing the L2BeaconRoots.set call on L2 varies based on whether
+    ///         a beacon root has already been stored in the L2BeaconRoots ring buffer for the specified timestamp.
+    ///         Most of the gas cost is due to two SSTORE operations (one for the timestamp and one for the beacon root):
+    ///             - 20,000 gas each when writing to cold storage.
+    ///             - 2,900 gas each when writing to warm storage.
+    uint32 internal constant L2_BEACON_ROOTS_SET_GAS_LIMIT_WHEN_COLD = 50_000;
+    uint32 internal constant L2_BEACON_ROOTS_SET_GAS_LIMIT_WHEN_WARM = 15_000;
 
+    /// @param _messenger: The address of the CrossDomainMessenger contract on the L1
+    /// @param _l2BeaconRoots: The address of the L2BeaconRoots contract on the L2
     constructor(address _messenger, address _l2BeaconRoots) {
         MESSENGER = _messenger;
         L2_BEACON_ROOTS = _l2BeaconRoots;
@@ -40,20 +46,25 @@ contract L1BeaconRootsSender is IL1BeaconRootsSender {
     function sendBlockRoot(uint256 _timestamp) public {
         uint256 currentBlockTimestamp = block.timestamp;
 
-        // If the _timestamp is not guaranteed to be within the beacon block root ring buffer, revert.
+        // If the _timestamp is in the futre, revert.
         if (_timestamp > currentBlockTimestamp) {
             revert TimestampInTheFuture();
         }
 
+        // If the _timestamp is not guaranteed to be within the beacon block root ring buffer, revert.
         if ((currentBlockTimestamp - _timestamp) >= (BEACON_ROOTS_HISTORY_BUFFER_LENGTH * BEACON_SECONDS_PER_SLOT)) {
             revert TimestampOutOfRing();
         }
 
+        // Retrieve the beacon block root from the official beacon roots contract
         bytes32 beaconRoot = _getBlockRoot(_timestamp);
+
+        // If the beacon root is missing, revert.
         if (beaconRoot == bytes32(0)) {
             revert BeaconRootMissing();
         }
 
+        // Send the beacon block root to the L2
         _send(_timestamp, beaconRoot);
     }
 
@@ -61,11 +72,15 @@ contract L1BeaconRootsSender is IL1BeaconRootsSender {
     function sendCurrentBlockRoot() public {
         uint256 currentBlockTimestamp = block.timestamp;
 
+        // Retrieve the beacon block root from the official beacon roots contract
         bytes32 beaconRoot = _getBlockRoot(currentBlockTimestamp);
+
+        // If the beacon root is missing, revert.
         if (beaconRoot == bytes32(0)) {
             revert BeaconRootMissing();
         }
 
+        // Send the beacon block root to the L2
         _send(currentBlockTimestamp, beaconRoot);
     }
 
@@ -79,17 +94,22 @@ contract L1BeaconRootsSender is IL1BeaconRootsSender {
     /// @param _timestamp: The timestamp of the beacon chain block
     /// @param _beaconRoot: The beacon chain block root at the given timestamp
     function _send(uint256 _timestamp, bytes32 _beaconRoot) internal {
-        // Check if the beacon root is already set in buffer for the given timestamp on the L2
-        // This allows to determine the gas limit required for the L2BeaconRoots.set function
-        // It assumes that messages are always relayed successfully
-        bool isToBeSet = BeaconRootsRingTracker._setIfNotSet(_timestamp % BEACON_ROOTS_HISTORY_BUFFER_LENGTH);
+        // Check whether a beacon root has already been set in the L2BeaconRoots ring buffer for the specified timestamp.
+        // It is used to adjust the gas limit required for the L2BeaconRoots.set call on L2.
+        // If not previously set, the timestamp is marked accordingly.
+        bool isToBeSet = BeaconRootsRingTracker._markIfNotYetMarked(_timestamp % BEACON_ROOTS_HISTORY_BUFFER_LENGTH);
 
-        uint32 gasLimit = L2_BEACON_ROOTS_SET_WHEN_WARM_GAS_LIMIT;
+        // If a beacon root has already been set in the L2BeaconRoots ring buffer for the specified timestamp,
+        // a lower gas limit is used since there's no need to write to fresh storage.
+        // Otherwise, the higher gas limit is applied for initial writes.
+        // As more beacon roots are recorded over time, the gas limit will increasingly shift to the warm limit.
+        // This approach reduces the L1 gas required to send beacon roots through the OP CrossDomainMessenger.
+        uint32 gasLimit = L2_BEACON_ROOTS_SET_GAS_LIMIT_WHEN_WARM;
         if (isToBeSet) {
-            gasLimit = L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT;
+            gasLimit = L2_BEACON_ROOTS_SET_GAS_LIMIT_WHEN_COLD;
         }
 
-        // Send the block root to the L2
+        // Send the beacon block root to the L2
         IL1CrossDomainMessenger(MESSENGER).sendMessage(
             address(L2_BEACON_ROOTS), abi.encodeCall(IL2BeaconRoots.set, (_timestamp, _beaconRoot)), gasLimit
         );
