@@ -45,7 +45,7 @@ contract L2BeaconRoots is IL2BeaconRoots {
 
     /// @inheritdoc IL2BeaconRoots
     function get(uint256 _beacon_timestamp) public view returns (bytes32) {
-        return beaconRoots[_beacon_timestamp];
+        return _get(_beacon_timestamp);
     }
 
     /// @inheritdoc IL2BeaconRoots
@@ -56,5 +56,28 @@ contract L2BeaconRoots is IL2BeaconRoots {
     /// @inheritdoc IL2BeaconRoots
     function getL1BeaconRootsSender() external view returns (address) {
         return L1_BEACON_ROOTS_SENDER;
+    }
+
+    fallback() external {
+        // If calldata is not 32 bytes long, revert
+        require(msg.data.length == 32, "BeaconRoots: Invalid function selector");
+
+        // Convert the call data to a uint256
+        uint256 beaconTimestamp;
+        assembly {
+            beaconTimestamp := calldataload(0)
+        }
+
+        bytes32 beaconRoot = _get(beaconTimestamp);
+
+        // Return the beacon root
+        assembly {
+            mstore(0, beaconRoot)
+            return(0, 32)
+        }
+    }
+
+    function _get(uint256 _beacon_timestamp) internal view returns (bytes32) {
+        return beaconRoots[_beacon_timestamp];
     }
 }

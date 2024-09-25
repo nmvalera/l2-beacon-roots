@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-/// @title IL2BeaconRootsVerifier
-/// @notice The interface of L2BeaconRootsVerifier  responsible for verifying Beacon Block SSZ Merkle proofs
-interface IL2BeaconRootsVerifier {
+/// @title IBeaconRootsVerifier
+/// @notice The interface of BeaconRootsVerifier  responsible for verifying Beacon Block SSZ Merkle proofs
+interface IBeaconRootsVerifier {
     /// @notice Verifies a Withdrawals Root Merkle proof for a given timestamp
     /// @param _timestamp: The timestamp of the Beacon Block
     /// @param _proofs: The Merkle proof
