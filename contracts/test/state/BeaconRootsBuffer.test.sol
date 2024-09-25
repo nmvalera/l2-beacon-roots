@@ -16,7 +16,7 @@ contract BeaconRootsBufferTest is Test {
 
     function test_get_overridenTimestamp() public {
         assertEq(BeaconRootsBuffer._get(warmTimestamp), bytes32(uint256(0x1234)));
-        BeaconRootsBuffer._set(warmTimestamp+HISTORY_BUFFER_LENGTH, bytes32(uint256(0x1235)));
+        BeaconRootsBuffer._set(warmTimestamp + HISTORY_BUFFER_LENGTH, bytes32(uint256(0x1235)));
         assertEq(BeaconRootsBuffer._get(warmTimestamp), bytes32(uint256(0)));
     }
 

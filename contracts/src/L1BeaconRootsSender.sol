@@ -87,13 +87,11 @@ contract L1BeaconRootsSender is IL1BeaconRootsSender {
         uint32 gasLimit = L2_BEACON_ROOTS_SET_WHEN_WARM_GAS_LIMIT;
         if (isToBeSet) {
             gasLimit = L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT;
-        } 
+        }
 
         // Send the block root to the L2
         IL1CrossDomainMessenger(MESSENGER).sendMessage(
-            address(L2_BEACON_ROOTS),
-            abi.encodeCall(IL2BeaconRoots.set, (_timestamp, _beaconRoot)),
-            gasLimit
+            address(L2_BEACON_ROOTS), abi.encodeCall(IL2BeaconRoots.set, (_timestamp, _beaconRoot)), gasLimit
         );
 
         // Emit BlockRootSent event

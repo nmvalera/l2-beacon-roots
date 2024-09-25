@@ -49,7 +49,9 @@ contract L1BeaconRootsTest is Test {
 
         // Relay the message from the L1BeaconRootsSender remote contract
         vm.startPrank(l1BeaconRootsSender);
-        l2CrossDomainMessengerMock.relayMessage(address(l2BeaconRoots), L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT, message);
+        l2CrossDomainMessengerMock.relayMessage(
+            address(l2BeaconRoots), L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT, message
+        );
         vm.stopPrank();
 
         // Check that the beacon root was set
@@ -70,7 +72,9 @@ contract L1BeaconRootsTest is Test {
 
         // Relay the message from the unknown remote contract
         vm.startPrank(unknown);
-        l2CrossDomainMessengerMock.relayMessage(address(l2BeaconRoots), L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT, message);
+        l2CrossDomainMessengerMock.relayMessage(
+            address(l2BeaconRoots), L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT, message
+        );
         vm.stopPrank();
     }
 
@@ -100,7 +104,9 @@ contract L1BeaconRootsTest is Test {
 
         // Relay the message from the L1BeaconRootsSender remote contract
         vm.startPrank(l1BeaconRootsSender);
-        l2CrossDomainMessengerMock.relayMessage(address(l2BeaconRoots), L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT, message);
+        l2CrossDomainMessengerMock.relayMessage(
+            address(l2BeaconRoots), L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT, message
+        );
         vm.stopPrank();
 
         // Check that the beacon root was set
@@ -117,7 +123,9 @@ contract L1BeaconRootsTest is Test {
 
         // Relay the message from the L1BeaconRootsSender remote contract
         vm.startPrank(l1BeaconRootsSender);
-        l2CrossDomainMessengerMock.relayMessage(address(l2BeaconRoots), L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT, message);
+        l2CrossDomainMessengerMock.relayMessage(
+            address(l2BeaconRoots), L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT, message
+        );
         vm.stopPrank();
 
         // Check that the beacon root was set
@@ -140,7 +148,9 @@ contract L1BeaconRootsTest is Test {
         emit L2CrossDomainMessengerMock.RelayedMessage(messageHash);
 
         vm.startPrank(l1BeaconRootsSender);
-        l2CrossDomainMessengerMock.relayMessage(address(l2BeaconRoots), L2_BEACON_ROOTS_SET_WHEN_WARM_GAS_LIMIT, message);
+        l2CrossDomainMessengerMock.relayMessage(
+            address(l2BeaconRoots), L2_BEACON_ROOTS_SET_WHEN_WARM_GAS_LIMIT, message
+        );
         vm.stopPrank();
     }
 }

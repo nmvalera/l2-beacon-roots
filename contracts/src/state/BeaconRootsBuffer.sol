@@ -31,7 +31,7 @@ library BeaconRootsBuffer {
         }
 
         uint256 timestamp_idx = _timestamp % HISTORY_BUFFER_LENGTH;
-        uint256  root_idx = timestamp_idx + HISTORY_BUFFER_LENGTH;
+        uint256 root_idx = timestamp_idx + HISTORY_BUFFER_LENGTH;
         r.value[timestamp_idx] = _timestamp;
         r.value[root_idx] = uint256(_beaconRoot);
     }
