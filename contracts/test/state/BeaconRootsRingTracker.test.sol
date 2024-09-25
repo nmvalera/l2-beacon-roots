@@ -9,11 +9,11 @@ contract BeaconRootsRingTackerTest is Test {
     /// @notice Length of the history buffer
     uint256 internal constant HISTORY_BUFFER_LENGTH = 8191;
 
-    function test_setIfNotSet(uint256 timestamp) public {
+    function test_markIfNotYetMarked(uint256 timestamp) public {
         uint256 ringIdx = timestamp % HISTORY_BUFFER_LENGTH;
-        assertFalse(BeaconRootsRingTracker._isSet(ringIdx));
-        assertTrue(BeaconRootsRingTracker._setIfNotSet(ringIdx));
-        assertTrue(BeaconRootsRingTracker._isSet(ringIdx));
-        assertFalse(BeaconRootsRingTracker._setIfNotSet(ringIdx));
+        assertFalse(BeaconRootsRingTracker._isMarked(ringIdx));
+        assertTrue(BeaconRootsRingTracker._markIfNotYetMarked(ringIdx));
+        assertTrue(BeaconRootsRingTracker._isMarked(ringIdx));
+        assertFalse(BeaconRootsRingTracker._markIfNotYetMarked(ringIdx));
     }
 }

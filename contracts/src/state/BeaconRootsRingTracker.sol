@@ -12,9 +12,9 @@ library BeaconRootsRingTracker {
         uint256[32] value;
     }
 
-    /// @notice Check if a ring buffer index is set
-    /// @dev The ring buffer index must be within the history buffer length (0 <= _ringIdx < HISTORY_BUFFER_LENGTH)
-    function _isSet(uint256 _ringIdx) internal view returns (bool) {
+    /// @notice Check if a ring buffer index was already marked
+    /// @param _ringIdx: The ring buffer index, it must be within the history buffer length (0 <= _ringIdx < HISTORY_BUFFER_LENGTH)
+    function _isMarked(uint256 _ringIdx) internal view returns (bool) {
         bytes32 slot = RING_TRACKER_SLOT;
 
         Slot storage r;
@@ -29,9 +29,10 @@ library BeaconRootsRingTracker {
         return r.value[trackerIdx] & (1 << bitIdx) > 0;
     }
 
-    /// @notice Set a ring buffer index if it is not already set
-    /// @return true if the index was set, false otherwise
-    function _setIfNotSet(uint256 _ringIdx) internal returns (bool) {
+    /// @notice Mark a ring buffer index if it is was not already marked
+    /// @param _ringIdx: The ring buffer index, it must be within the history buffer length (0 <= _ringIdx < HISTORY_BUFFER_LENGTH)
+    /// @return true if the marking happen, or false if the index was already marked
+    function _markIfNotYetMarked(uint256 _ringIdx) internal returns (bool) {
         bytes32 slot = RING_TRACKER_SLOT;
 
         Slot storage r;
@@ -41,11 +42,16 @@ library BeaconRootsRingTracker {
             r.slot := slot
         }
 
+        /// Check if the ring index is already marked
         (uint256 trackerIdx, uint256 bitIdx) = _position(_ringIdx);
         if (r.value[trackerIdx] & (1 << bitIdx) > 0) {
             return false;
         }
 
+        ///  Mark the ring index if it is not already marked
+        ///  Note:
+        ///  - This is the expensive part of the operation as it requires an SSTORE operation
+        ///  - In most cases, this will re-write a storage slot that was already marked for a neighboring ring index, thus reducing gas cost
         r.value[trackerIdx] |= (1 << bitIdx);
 
         return true;

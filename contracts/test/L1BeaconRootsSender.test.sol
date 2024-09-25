@@ -26,7 +26,7 @@ contract L1BeaconRootsSenderTest is Test {
     uint256 internal constant BEACON_SECONDS_PER_SLOT = 12;
 
     uint32 internal constant L2_BEACON_ROOTS_SET_WHEN_COLD_GAS_LIMIT = 50_000;
-    uint32 internal constant L2_BEACON_ROOTS_SET_WHEN_WARM_GAS_LIMIT = 5_000;
+    uint32 internal constant L2_BEACON_ROOTS_SET_WHEN_WARM_GAS_LIMIT = 15_000;
 
     function setUp() public {
         l1CrossDomainMessengerMock = new L1CrossDomainMessengerMock();
