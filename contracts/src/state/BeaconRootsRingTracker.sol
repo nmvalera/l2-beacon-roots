@@ -28,12 +28,10 @@ library BeaconRootsRingTracker {
             ///  Note:
             ///  - This is the expensive part of the operation as it requires an SSTORE operation
             ///  - In most cases, this will re-write a storage slot that was already marked for a neighboring ring index, thus reducing gas cost
-            let trackerIdx := div(_ringIdx, 256)
-            let bitIdx := mod(_ringIdx, 256)
-            let u := sload(add(slot,trackerIdx))
-            wasMarked := eq(and(u, shl(bitIdx, 1)),0)
+            let u := sload(add(slot,div(_ringIdx, 256)))
+            wasMarked := eq(and(u, shl(mod(_ringIdx, 256), 1)),0)
             if wasMarked {
-                sstore(add(slot,trackerIdx), or(u, shl(bitIdx, 1)))
+                sstore(add(slot,div(_ringIdx, 256)), or(u, shl(mod(_ringIdx, 256), 1)))
             }
         }
     }
