@@ -13,11 +13,11 @@ library BeaconRootsRingTracker {
         bytes32 slot = RING_TRACKER_SLOT;
 
         assembly {
-            let u := sload(add(slot,div(_ringIdx, 256)))
-            isMarked := gt(and(u, shl(mod(_ringIdx, 256), 1)),0)
+            let u := sload(add(slot, div(_ringIdx, 256)))
+            isMarked := gt(and(u, shl(mod(_ringIdx, 256), 1)), 0)
         }
     }
-    
+
     /// @notice Mark a ring buffer index if it was not already marked
     /// @param _ringIdx: The ring buffer index, it must be within the history buffer length (0 <= _ringIdx < HISTORY_BUFFER_LENGTH)
     function _markIfNotYetMarked(uint256 _ringIdx) internal returns (bool wasMarked) {
@@ -28,11 +28,9 @@ library BeaconRootsRingTracker {
             ///  Note:
             ///  - This is the expensive part of the operation as it requires an SSTORE operation
             ///  - In most cases, this will re-write a storage slot that was already marked for a neighboring ring index, thus reducing gas cost
-            let u := sload(add(slot,div(_ringIdx, 256)))
-            wasMarked := eq(and(u, shl(mod(_ringIdx, 256), 1)),0)
-            if wasMarked {
-                sstore(add(slot,div(_ringIdx, 256)), or(u, shl(mod(_ringIdx, 256), 1)))
-            }
+            let u := sload(add(slot, div(_ringIdx, 256)))
+            wasMarked := eq(and(u, shl(mod(_ringIdx, 256), 1)), 0)
+            if wasMarked { sstore(add(slot, div(_ringIdx, 256)), or(u, shl(mod(_ringIdx, 256), 1))) }
         }
     }
 }

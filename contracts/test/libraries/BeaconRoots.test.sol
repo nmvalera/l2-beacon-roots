@@ -6,7 +6,6 @@ import "forge-std/Test.sol";
 import "../mocks/BeaconRootsMock.sol";
 import "../../src/libraries/BeaconRoots.sol";
 
-
 contract BeaconRootsTest is Test {
     BeaconRootsMock public beaconRootsMock;
 
