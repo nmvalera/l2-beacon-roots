@@ -8,9 +8,7 @@ library BeaconRoots {
         assembly {
             mstore(0, _timestamp)
             pop(staticcall(gas(), _beaconRoots, 0, 0x20, 0, 0x20))
-            if eq(returndatasize(), 0x20) {
-                beaconRoot := mload(0)
-            }
+            if eq(returndatasize(), 0x20) { beaconRoot := mload(0) }
         }
     }
 }

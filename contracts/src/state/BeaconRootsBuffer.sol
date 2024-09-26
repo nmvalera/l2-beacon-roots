@@ -21,7 +21,7 @@ library BeaconRootsBuffer {
             let timestamp_idx := mod(_timestamp, HISTORY_BUFFER_LENGTH)
             let root_idx := add(timestamp_idx, HISTORY_BUFFER_LENGTH)
             sstore(add(slot, timestamp_idx), _timestamp)
-            sstore(add(slot, root_idx), _beaconRoot)       
+            sstore(add(slot, root_idx), _beaconRoot)
         }
     }
 
@@ -33,9 +33,7 @@ library BeaconRootsBuffer {
         assembly {
             let timestamp_idx := mod(_timestamp, HISTORY_BUFFER_LENGTH)
             let root_idx := add(timestamp_idx, HISTORY_BUFFER_LENGTH)
-            if eq(timestamp_idx, sload(add(slot, timestamp_idx))) {
-                beaconRoot := sload(add(slot, root_idx))
-            }      
+            if eq(timestamp_idx, sload(add(slot, timestamp_idx))) { beaconRoot := sload(add(slot, root_idx)) }
         }
     }
 }
