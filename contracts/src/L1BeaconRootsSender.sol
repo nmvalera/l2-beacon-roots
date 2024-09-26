@@ -44,15 +44,13 @@ contract L1BeaconRootsSender is IL1BeaconRootsSender {
 
     /// @inheritdoc IL1BeaconRootsSender
     function sendBlockRoot(uint256 _timestamp) public {
-        uint256 currentBlockTimestamp = block.timestamp;
-
         // If the _timestamp is in the futre, revert.
-        if (_timestamp > currentBlockTimestamp) {
+        if (_timestamp > block.timestamp) {
             revert TimestampInTheFuture();
         }
 
         // If the _timestamp is not guaranteed to be within the beacon block root ring buffer, revert.
-        if ((currentBlockTimestamp - _timestamp) >= (BEACON_ROOTS_HISTORY_BUFFER_LENGTH * BEACON_SECONDS_PER_SLOT)) {
+        if ((block.timestamp - _timestamp) >= (BEACON_ROOTS_HISTORY_BUFFER_LENGTH * BEACON_SECONDS_PER_SLOT)) {
             revert TimestampOutOfRing();
         }
 
@@ -70,10 +68,8 @@ contract L1BeaconRootsSender is IL1BeaconRootsSender {
 
     /// @inheritdoc IL1BeaconRootsSender
     function sendCurrentBlockRoot() public {
-        uint256 currentBlockTimestamp = block.timestamp;
-
         // Retrieve the beacon block root from the official beacon roots contract
-        bytes32 beaconRoot = _getBlockRoot(currentBlockTimestamp);
+        bytes32 beaconRoot = _getBlockRoot(block.timestamp);
 
         // If the beacon root is missing, revert.
         if (beaconRoot == bytes32(0)) {
@@ -81,7 +77,7 @@ contract L1BeaconRootsSender is IL1BeaconRootsSender {
         }
 
         // Send the beacon block root to the L2
-        _send(currentBlockTimestamp, beaconRoot);
+        _send(block.timestamp, beaconRoot);
     }
 
     /// @notice Retrieves a beacon block root from the official beacon roots contract (EIP-4788)
