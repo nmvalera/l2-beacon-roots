@@ -12,28 +12,17 @@ library BeaconRootsBuffer {
     /// @notice Length of the history buffer
     uint256 internal constant HISTORY_BUFFER_LENGTH = 8191;
 
-    /// @notice Structure of the buffer in storage
-    struct Slot {
-        mapping(uint256 => uint256) value;
-    }
-
     /// @notice Set a beacon root in the buffer
     /// @param _timestamp The timestamp of the beacon root
     /// @param _beaconRoot The beacon root
     function _set(uint256 _timestamp, bytes32 _beaconRoot) internal {
         bytes32 slot = BUFFER_SLOT;
-
-        Slot storage r;
-
-        // solhint-disable-next-line no-inline-assembly
         assembly {
-            r.slot := slot
+            let timestamp_idx := mod(_timestamp, HISTORY_BUFFER_LENGTH)
+            let root_idx := add(timestamp_idx, HISTORY_BUFFER_LENGTH)
+            sstore(add(slot, timestamp_idx), _timestamp)
+            sstore(add(slot, root_idx), _beaconRoot)       
         }
-
-        uint256 timestamp_idx = _timestamp % HISTORY_BUFFER_LENGTH;
-        uint256 root_idx = timestamp_idx + HISTORY_BUFFER_LENGTH;
-        r.value[timestamp_idx] = _timestamp;
-        r.value[root_idx] = uint256(_beaconRoot);
     }
 
     /// @notice Get a beacon root from the buffer
@@ -41,20 +30,12 @@ library BeaconRootsBuffer {
     /// @return beaconRoot The beacon root if found, otherwise 0
     function _get(uint256 _timestamp) internal view returns (bytes32 beaconRoot) {
         bytes32 slot = BUFFER_SLOT;
-
-        Slot storage r;
-
-        // solhint-disable-next-line no-inline-assembly
         assembly {
-            r.slot := slot
-        }
-
-        uint256 timestamp_idx = _timestamp % HISTORY_BUFFER_LENGTH;
-        uint256 root_idx = timestamp_idx + HISTORY_BUFFER_LENGTH;
-
-        uint256 bufferTimestamp = r.value[timestamp_idx];
-        if (bufferTimestamp == _timestamp) {
-            beaconRoot = bytes32(r.value[root_idx]);
+            let timestamp_idx := mod(_timestamp, HISTORY_BUFFER_LENGTH)
+            let root_idx := add(timestamp_idx, HISTORY_BUFFER_LENGTH)
+            if eq(timestamp_idx, sload(add(slot, timestamp_idx))) {
+                beaconRoot := sload(add(slot, root_idx))
+            }      
         }
     }
 }
