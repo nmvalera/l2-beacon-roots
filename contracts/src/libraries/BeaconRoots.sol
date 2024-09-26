@@ -6,9 +6,10 @@ pragma solidity ^0.8.20;
 library BeaconRoots {
     function _get(address _beaconRoots, uint256 _timestamp) internal view returns (bytes32 beaconRoot) {
         assembly {
-            mstore(0, _timestamp)
-            pop(staticcall(gas(), _beaconRoots, 0, 0x20, 0, 0x20))
-            if eq(returndatasize(), 0x20) { beaconRoot := mload(0) }
+            let data := mload(0x40)
+            mstore(data, _timestamp)
+            pop(staticcall(gas(), _beaconRoots, data, 0x20, data, 0x20))
+            if eq(returndatasize(), 0x20) { beaconRoot := mload(data) }
         }
     }
 }
