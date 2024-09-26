@@ -23,4 +23,18 @@ contract BeaconRootsTest is Test {
         bytes32 beaconRoot = BeaconRoots._get(address(beaconRootsMock), 0x12345);
         assertEq(beaconRoot, bytes32(uint256(0x12345)));
     }
+
+    function test_get_noMemoryOverwrite() public view {
+        uint256 startValue = 0x123456789;
+        assembly {
+            mstore(0, startValue)
+        }
+        assertEq(BeaconRoots._get(address(beaconRootsMock), 0x12345), bytes32(uint256(0x12345)));
+        uint256 finalValue;
+        assembly {
+            finalValue := mload(0)
+        }
+
+        assertEq(finalValue, startValue);
+    }
 }
