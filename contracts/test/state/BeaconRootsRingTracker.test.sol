@@ -16,4 +16,12 @@ contract BeaconRootsRingTackerTest is Test {
         assertTrue(BeaconRootsRingTracker._isMarked(ringIdx));
         assertFalse(BeaconRootsRingTracker._markIfNotYetMarked(ringIdx));
     }
+
+    function test_isMarked_whenNotMarked(uint256 timestamp) public view{
+        assertFalse(BeaconRootsRingTracker._isMarked(timestamp));
+    }
+
+    function test_markIfNotYetMarked_whenNotMarked(uint256 timestamp) public {
+        assertTrue(BeaconRootsRingTracker._markIfNotYetMarked(timestamp));
+    }
 }

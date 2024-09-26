@@ -7,57 +7,34 @@ library BeaconRootsRingTracker {
     /// @notice Storage slot of the buffer
     bytes32 internal constant RING_TRACKER_SLOT = bytes32(uint256(keccak256("beaconRootsSender.state.ringTracker")) - 1);
 
-    /// @notice Structure of the buffer in storage
-    struct Slot {
-        uint256[32] value;
-    }
-
     /// @notice Check if a ring buffer index was already marked
     /// @param _ringIdx: The ring buffer index, it must be within the history buffer length (0 <= _ringIdx < HISTORY_BUFFER_LENGTH)
-    function _isMarked(uint256 _ringIdx) internal view returns (bool) {
+    function _isMarked(uint256 _ringIdx) internal view returns (bool isMarked) {
         bytes32 slot = RING_TRACKER_SLOT;
 
-        Slot storage r;
-
-        // solhint-disable-next-line no-inline-assembly
         assembly {
-            r.slot := slot
+            let u := sload(add(slot,div(_ringIdx, 256)))
+            isMarked := gt(and(u, shl(mod(_ringIdx, 256), 1)),0)
         }
-
-        (uint256 trackerIdx, uint256 bitIdx) = _position(_ringIdx);
-
-        return r.value[trackerIdx] & (1 << bitIdx) > 0;
     }
-
-    /// @notice Mark a ring buffer index if it is was not already marked
+    
+    /// @notice Mark a ring buffer index if it was not already marked
     /// @param _ringIdx: The ring buffer index, it must be within the history buffer length (0 <= _ringIdx < HISTORY_BUFFER_LENGTH)
-    /// @return true if the marking happen, or false if the index was already marked
-    function _markIfNotYetMarked(uint256 _ringIdx) internal returns (bool) {
+    function _markIfNotYetMarked(uint256 _ringIdx) internal returns (bool wasMarked) {
         bytes32 slot = RING_TRACKER_SLOT;
 
-        Slot storage r;
-
-        // solhint-disable-next-line no-inline-assembly
         assembly {
-            r.slot := slot
+            ///  Mark the ring index if it is not already marked
+            ///  Note:
+            ///  - This is the expensive part of the operation as it requires an SSTORE operation
+            ///  - In most cases, this will re-write a storage slot that was already marked for a neighboring ring index, thus reducing gas cost
+            let trackerIdx := div(_ringIdx, 256)
+            let bitIdx := mod(_ringIdx, 256)
+            let u := sload(add(slot,trackerIdx))
+            wasMarked := eq(and(u, shl(bitIdx, 1)),0)
+            if wasMarked {
+                sstore(add(slot,trackerIdx), or(u, shl(bitIdx, 1)))
+            }
         }
-
-        /// Check if the ring index is already marked
-        (uint256 trackerIdx, uint256 bitIdx) = _position(_ringIdx);
-        if (r.value[trackerIdx] & (1 << bitIdx) > 0) {
-            return false;
-        }
-
-        ///  Mark the ring index if it is not already marked
-        ///  Note:
-        ///  - This is the expensive part of the operation as it requires an SSTORE operation
-        ///  - In most cases, this will re-write a storage slot that was already marked for a neighboring ring index, thus reducing gas cost
-        r.value[trackerIdx] |= (1 << bitIdx);
-
-        return true;
-    }
-
-    function _position(uint256 _ringIdx) private pure returns (uint256, uint256) {
-        return (_ringIdx / 256, _ringIdx % 256);
     }
 }
